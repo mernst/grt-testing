@@ -6,7 +6,7 @@ MAJOR_HOME="../major/"
 #Link to the randoop jar
 RANDOOP_JAR="/mnt/c/Users/varun/downloads/randoop-4.3.2/randoop-4.3.2/randoop-all-4.3.2.jar"
 
-#Link to src files containing the project
+#Link to src files containing the project (make sure to also "src" property in .xml file)
 PROJECT_SRC="/mnt/c/Users/varun/Downloads/commons-cli-1.2-src/commons-cli-1.2-src/src/java"
 
 #Link to jacoco agent jar
