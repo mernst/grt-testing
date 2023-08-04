@@ -1,0 +1,5 @@
+As of right now (August 4), the only thing you need to change in order to reproduce my results is the path of Major and the Apache 
+Commons Cli v 1.2. You can download Major here: https://mutation-testing.org/downloads/. For the Apache Commons Cli, I downloaded
+"commons-cli-1.2-src.zip" here: https://archive.apache.org/dist/commons/cli/source/ 
+
+Everything else should work. Let me know if there are any bugs.
