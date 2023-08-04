@@ -1,18 +1,32 @@
 #!/bin/bash
 
+#This script uses mutation testing with Randoop generating the test suites. Different
+#test suites can be generated with Bloodhound, Orienteering, neither (baseline), or both.
+#Mutation testing is used on projects provided in table 2 of the GRT paper.
+
+#This script will create and put Randoop's test suites in a "test" subdirectory. 
+#Compiled tests and code will be stored in a "bin" subdirectory.
+#The script will generate various mutants of the source project using Major and run these tests on those mutants.
+
+#Finally, each experiment can run a given amount of times and a given amount of seconds per class. 
+#Each iteration will be logged to a file "info.txt".
+
 make
 
 #Link to the major directory
 MAJOR_HOME="../major/"
+MAJOR_HOME=$(realpath "$MAJOR_HOME")
 
 #Link to the randoop jar
 RANDOOP_JAR="jarfiles/randoop-all-4.3.2.jar"
+RANDOOP_JAR=$(realpath "$RANDOOP_JAR")
 
 #Link to src files containing the project (make sure to also change "src" property in .xml file)
 PROJECT_SRC="/mnt/c/Users/varun/Downloads/commons-cli-1.2-src/commons-cli-1.2-src/src/java"
 
 #Link to jacoco agent jar
-JACOCO_JAR="jarfiles/jacocoagent.jar"
+JACOCO_JAR="jarfiles/lib/jacocoagent.jar"
+JACOCO_JAR=$(realpath "$JACOCO_JAR")
 
 #Seconds per class
 SECONDS_CLASS="2"
@@ -20,9 +34,7 @@ SECONDS_CLASS="2"
 #Number of times to run experiments (10 in GRT paper)
 NUM_LOOP=2
 
-rm -rf test
 rm info.txt
-mkdir test
 touch info.txt
 
 echo "Using Randoop to generate tests"
@@ -33,43 +45,54 @@ find $PROJECT_SRC -type f -name "*.class" -printf "%P\n" | sed 's/\//./g' | sed 
 NUM_CLASSES=$(wc -l < $PROJECT_SRC/myclasses.txt)
 TIME_LIMIT=$((NUM_CLASSES * SECONDS_CLASS))
 
+#Variable that stores command line inputs common among all commands
+CLI_INPUTS="java -Xbootclasspath/a:$JACOCO_JAR -javaagent:$JACOCO_JAR -classpath $PROJECT_SRC:$RANDOOP_JAR randoop.main.Main gentests --classlist=$PROJECT_SRC/myclasses.txt --time-limit=$TIME_LIMIT"
+
 for i in $(seq 1 $NUM_LOOP)
 do
-    # echo "Using Bloodhound"
-    # echo
-    # java -classpath "$PROJECT_SRC:$RANDOOP_JAR" -Xbootclasspath/a:$JACOCO_JAR -javaagent:$JACOCO_JAR randoop.main.Main gentests --classlist="$PROJECT_SRC/myclasses.txt" --time-limit=$TIME_LIMIT --method-selection=BLOODHOUND --junit-output-dir="$PWD/test"
+    rm -rf test*
+
+    echo "Using Bloodhound"
+    echo
+    mkdir testBloodhound
+    TEST_DIRECTORY="testBloodhound"
+    $CLI_INPUTS --method-selection=BLOODHOUND --junit-output-dir="$PWD/testBloodhound"
 
     # echo "Using Orienteering"
     # echo
-    # java -classpath "$PROJECT_SRC:$RANDOOP_JAR" randoop.main.Main gentests --classlist="$PROJECT_SRC/myclasses.txt" --time-limit=$TIME_LIMIT --input-selection=ORIENTEERING --junit-output-dir="$PWD/test"
+    # mkdir testOrienteering
+    # TEST_DIRECTORY="testOrienteering"
+    # $CLI_INPUTS --input-selection=ORIENTEERING --junit-output-dir="$PWD/testOrienteering"
 
     # echo "Using Bloodhound and Orienteering"
     # echo
-    # java -classpath "$PROJECT_SRC:$RANDOOP_JAR" -Xbootclasspath/a:$JACOCO_JAR -javaagent:$JACOCO_JAR randoop.main.Main gentests --classlist="$PROJECT_SRC/myclasses.txt" --time-limit=$TIME_LIMIT --input-selection-ORIENTEERING --method-selection=BLOODHOUND --junit-output-dir="$PWD/test"
+    # mkdir testBloodhoundOrienteering
+    # TEST_DIRECTORY="testBloodhoundOrienteering"
+    # $CLI_INPUTS -Xbootclasspath/a:$JACOCO_JAR -javaagent:$JACOCO_JAR --input-selection=ORIENTEERING --method-selection=BLOODHOUND --junit-output-dir="$PWD/testBloodhoundOrienteering"
 
-    echo "Using Baseline Randoop"
-    echo
-    java -classpath "$PROJECT_SRC:$RANDOOP_JAR" randoop.main.Main gentests --classlist="$PROJECT_SRC/myclasses.txt" --time-limit=$TIME_LIMIT --junit-output-dir="$PWD/test"
+    # echo "Using Baseline Randoop"
+    # echo
+    # mkdir testBaseline
+    # TEST_DIRECTORY="testBaseline"
+    # $CLI_INPUTS --junit-output-dir="$PWD/testBaseline"
 
     echo    
     echo "Compiling and mutating project"
     echo "(ant -Dmutator=\"=mml:\$MAJOR_HOME/mml/all.mml.bin\" clean compile)"
     echo
-    $MAJOR_HOME/bin/ant -Dmutator="mml:$MAJOR_HOME/mml/all.mml.bin" clean compile
+    $MAJOR_HOME/bin/ant -Dmutator="mml:$MAJOR_HOME/mml/all.mml.bin" -Dsrc="$PROJECT_SRC" clean compile
     
     echo
     echo "Compiling tests"
     echo "(ant compile.tests)"
     echo
-    $MAJOR_HOME/bin/ant compile.tests
+    $MAJOR_HOME/bin/ant -Dtest="$TEST_DIRECTORY" -Dsrc="$PROJECT_SRC" compile.tests
 
     echo
     echo "Run tests with mutation analysis"
     echo "(ant mutation.test)"
-    $MAJOR_HOME/bin/ant mutation.test
+    $MAJOR_HOME/bin/ant -Dtest="$TEST_DIRECTORY" mutation.test
 
     cat summary.csv >> info.txt
-
-    rm "$PROJECT_SRC/myclasses.txt"
-    
+   
 done

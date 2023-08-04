@@ -8,7 +8,6 @@
     <property name="major.jar" value="../major/lib/major.jar"/>
     <property name="mutator" value=""/>
     <property name="plugin" value="-Xplugin:MajorPlugin ${mutator}"/>
-    <property name="src" value="/mnt/c/Users/varun/Downloads/commons-cli-1.2-src/commons-cli-1.2-src/src/java"/>
 
 
 <!-- Target to clean up -->
@@ -39,7 +38,7 @@
 <!-- Target to compile the test suite -->
     <target name="compile.tests" depends="compile" description="Compile all tests">
         <javac includeantruntime="true" 
-               srcdir="test"
+               srcdir="${test}"
               destdir="bin"
                 debug="yes">
         </javac>
@@ -56,7 +55,7 @@
                 
             <classpath path="bin"/>
             <batchtest fork="false">
-                <fileset dir="test">
+                <fileset dir="${test}">
                     <include name="**/*Test*.java"/>
                 </fileset>
             </batchtest>
@@ -73,7 +72,7 @@
             <classpath path="bin"/>
 			
 			<batchtest fork="no">
-                <fileset dir="test">
+                <fileset dir="${test}">
                     <include name="**/*Test*.java"/>
                 </fileset>
             </batchtest>
