@@ -4,10 +4,12 @@ We have located 27 of them, but the number of classes, instructions, and/or
 branches for 5 of the files do not appear to match the ones in the table.
 Thus, this directory currently has 22 test cases:
 
+jar file                        source                              build system
+--------------------------------------------------------------------------------
 bcel-5.2.jar                    Apache BCEL (5.2)
 ClassViewer.jar                 ClassViewer (5.0.5b)
-commons-cli-1.2.jar             Apache Commons Cli (1.2)
-commons-codec-1.9.jar           Apache C. Codec (1.9)
+commons-cli-1.2.jar             Apache Commons Cli (1.2)            maven
+commons-codec-1.9.jar           Apache C. Codec (1.9)               maven
 commons-collections4-4.0.jar    Apache C. Collection (4.0)
 commons-compress-1.8.jar        Apache C. Compress (1.8)
 commons-lang3-3.0.jar           Apache C. Lang (3.0)

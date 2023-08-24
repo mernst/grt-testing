@@ -1,0 +1,15 @@
+The sources for these projects are several years old.  It almost all cases
+Java 8 is required to build.
+
+Maven (mvn) builds
+------------------
+If the project uses Maven to build, usually indicated by a pom.xml file in
+the root, a useful build command is:
+  mvn clean package -Dmaven.test.failure.ignore=true |& tee <your log file name>
+
+The failure.ignore option allows the .jar file to be built even if there are
+some test errors.  However, if there are lots of errors, there is probably
+something wrong that needs to be investigated.
+
+The resulting .jar file will be in the target subdirectory.
+
