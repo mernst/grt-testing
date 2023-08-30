@@ -1,5 +1,7 @@
 The sources for these projects are several years old.  It almost all cases
-Java 8 is required to build.
+Java 8 is required to build. Also, the environment variable JAVA_HOME should
+be set; for example:
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 Maven (mvn) builds
 ------------------
@@ -13,4 +15,16 @@ something wrong that needs to be investigated.
 
 The resulting .jar file will be in the target subdirectory.
 
-NOTE: For shiro-root-1.2.3 you must 'cd core' before running the build command.
+Build instructions
+------------------
+commons-cli-1.2: (uses mvn)
+commons-codec-1.9: (uses mvn)
+commons-collections4-4.0: (uses mvn)
+commons-compress-1.8: (uses mvn)
+commons-lang3-3.0: (uses mvn)
+commons-math3-3.2: (uses mvn)
+jdom-1.0: ./build.sh  (result is in build subdir)
+joda-time-2.3: (uses mvn)
+JSAP-2.1: ant jar  (result is in dist subdir)
+jvc-1.1: ant tools  (result is in dist subdir)
+shiro-root-1.2.3: (uses mvn - but 'cd core' first)
