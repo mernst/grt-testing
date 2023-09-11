@@ -8,6 +8,8 @@ Maven (mvn) builds
 If the project uses Maven to build, usually indicated by a pom.xml file in
 the root, a useful build command is:
   mvn -B clean package -Dmaven.test.failure.ignore -Dmaven.javadoc.skip |& tee <your log file name>
+for pmd-core use:
+  mvn -B clean package -Dmaven.test.skip -Dmaven.javadoc.skip -DjavaccBuildNotRequired |& tee <your log file name>
 
 The failure.ignore option allows the .jar file to be built even if there are
 some test errors.  However, if there are lots of errors, there is probably
@@ -29,6 +31,7 @@ joda-time-2.3:            (uses mvn)
 JSAP-2.1:                 ant jar     (result is in dist subdir)
 jvc-1.1:                  ant tools   (result is in dist subdir)
 nekomud-r16:              ant         (result is in dist subdir)
+pmd-core-5.2.2:           (uses mvn - but 'cd pmd-core' first)
 sat4j.core-2.3.5:         (uses mvn)  (result is in org.sat4j.core/target)
 shiro-root-1.2.3:         (uses mvn - but 'cd core' first)
 slf4j-api-1.7.12:         (uses mvn - but 'cd slf4j-api' first)
