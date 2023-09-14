@@ -20,6 +20,7 @@ The resulting .jar file will be in the target subdirectory.
 Test directory            Build instructions
 ------------------------------------------------------------
 a4j-1.0b:                 ant createJar   (result is in dist subdir)
+asm-5.0.1:                (uses mvn)
 bcel-5.2:                 ant jar         (result is in target subdir)
 commons-cli-1.2:          (uses mvn)
 commons-codec-1.9:        (uses mvn)
@@ -51,7 +52,6 @@ hamcrest-core-1.3         Hamcrest-core (1.3)
 javassist-3.19.0-GA       Javassit (3.19)
 
 can't find:
-asm-5.0.1                 ASM (5.0.1)
 fixsuite-r48              Fixsuite (R48)
 mango-2.1                 Mango (2.1 03.2014)
 scch-collection-1.0       SCCH collection (1.0)
