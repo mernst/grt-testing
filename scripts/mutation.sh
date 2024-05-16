@@ -40,7 +40,7 @@ SRC_JAR=$(realpath "../tests/$1")
 JAVA_SRC_DIR="$2"
 
 # Number of classes in given jar file
-NUM_CLASSES=$(jar -tf "$SRC_JAR" | grep '.class' | wc -l)
+NUM_CLASSES=$(jar -tf "$SRC_JAR" | grep -c '.class')
 
 # Time limit for running Randoop
 TIME_LIMIT=$((NUM_CLASSES * SECONDS_CLASS))
@@ -70,25 +70,25 @@ do
 
     # echo "Using Orienteering"
     # echo
-    # TEST_DIRECTORY="$CURR_DIR/build/testOrienteering"
-    # mkdir $TEST_DIRECTORY
-    # $CLI_INPUTS --input-selection=ORIENTEERING --junit-output-dir=$TEST_DIRECTORY
+    # TEST_DIRECTORY="$CURR_DIR"/build/testOrienteering
+    # mkdir "$TEST_DIRECTORY"
+    # $CLI_INPUTS --input-selection=ORIENTEERING --junit-output-dir="$TEST_DIRECTORY"
 
     # echo "Using Bloodhound and Orienteering"
     # echo
-    # TEST_DIRECTORY="$CURR_DIR/build/testBloodhoundOrienteering"
-    # mkdir $TEST_DIRECTORY
-    # $CLI_INPUTS --input-selection=ORIENTEERING --method-selection=BLOODHOUND --junit-output-dir=$TEST_DIRECTORY
+    # TEST_DIRECTORY="$CURR_DIR"/build/testBloodhoundOrienteering
+    # mkdir "$TEST_DIRECTORY"
+    # $CLI_INPUTS --input-selection=ORIENTEERING --method-selection=BLOODHOUND --junit-output-dir="$TEST_DIRECTORY"
 
     # echo "Using Baseline Randoop"
     # echo
     # TEST_DIRECTORY="$CURR_DIR/build/testBaseline"
-    # mkdir $TEST_DIRECTORY
-    # $CLI_INPUTS --junit-output-dir=$TEST_DIRECTORY
+    # mkdir "$TEST_DIRECTORY"
+    # $CLI_INPUTS --junit-output-dir="$TEST_DIRECTORY"
 
     echo    
     echo "Compiling and mutating project"
-    echo "(ant -Dmutator=\"=mml:\$MAJOR_HOME/mml/all.mml.bin\" clean compile)"
+    echo '(ant -Dmutator="=mml:'"$MAJOR_HOME"'/mml/all.mml.bin" clean compile)'
     echo
     "$MAJOR_HOME"/bin/ant -Dmutator="mml:$MAJOR_HOME/mml/all.mml.bin" -Dsrc="$JAVA_SRC_DIR" clean compile
     
