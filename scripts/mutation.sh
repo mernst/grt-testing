@@ -22,7 +22,7 @@ MAJOR_HOME=$(realpath "build/major/")
 CURR_DIR=$(realpath "$(pwd)")
 
 # Link to the randoop jar
-RANDOOP_JAR=$(realpath "build/randoop-all-4.3.3.jar")
+RANDOOP_JAR=$(realpath "build/randoop-all-4.3.2.jar")
 
 # Link to jacoco agent jar. This is necessary for Bloodhound
 JACOCO_JAR=$(realpath "build/jacocoagent.jar")
@@ -54,6 +54,9 @@ echo
 # Output file for runtime information 
 rm results/info.txt
 touch results/info.txt
+
+JAR_DIR="$3"
+CLASSPATH=$(echo $JAR_DIR/*.jar | tr ' ' ':')
 
 # shellcheck disable=SC2034 # i counts iterations but is not otherwise used.
 for i in $(seq 1 $NUM_LOOP)
@@ -108,18 +111,18 @@ do
     echo "Compiling and mutating project"
     echo '(ant -Dmutator="=mml:'"$MAJOR_HOME"'/mml/all.mml.bin" clean compile)'
     echo
-    "$MAJOR_HOME"/bin/ant -Dmutator="mml:$MAJOR_HOME/mml/all.mml.bin" -Dsrc="$JAVA_SRC_DIR" clean compile
+    "$MAJOR_HOME"/bin/ant -Dmutator="mml:$MAJOR_HOME/mml/all.mml.bin" -Dsrc="$JAVA_SRC_DIR" -lib "$CLASSPATH" clean compile
     
     echo
     echo "Compiling tests"
     echo "(ant compile.tests)"
     echo
-    "$MAJOR_HOME"/bin/ant -Dtest="$TEST_DIRECTORY" -Dsrc="$JAVA_SRC_DIR" compile.tests
+    "$MAJOR_HOME"/bin/ant -Dtest="$TEST_DIRECTORY" -Dsrc="$JAVA_SRC_DIR" -lib "$CLASSPATH" compile.tests
 
     echo
     echo "Run tests with mutation analysis"
     echo "(ant mutation.test)"
-    "$MAJOR_HOME"/bin/ant -Dtest="$TEST_DIRECTORY" mutation.test
+    "$MAJOR_HOME"/bin/ant -Dtest="$TEST_DIRECTORY" -lib "$CLASSPATH" mutation.test
 
     # info.txt contains a record of each version of summary.csv that existed.
     cat results/summary.csv >> results/info.txt
