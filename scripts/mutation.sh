@@ -13,6 +13,10 @@
 # All other files logged to the "results" subdirectory are specific to the most recent iteration of the experiment. 
 # See "reproinstructions.txt" for more instructions on how to run this script.
 
+# Fail this script on errors.
+set -e
+set -o pipefail
+
 make
 
 # Link to the major directory
