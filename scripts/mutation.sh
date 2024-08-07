@@ -36,7 +36,7 @@ CURR_DIR=$(realpath "$(pwd)")
 RANDOOP_JAR=$(realpath "build/randoop-all-4.3.3.jar")
 
 # Link to jacoco agent jar. This is necessary for Bloodhound
-JACOCO_JAR=$(realpath "build/jacocoagent.jar")
+JACOCO_AGENT_JAR=$(realpath "build/jacocoagent.jar")
 
 # The paper runs Randoop on 4 different time limits. These are: 2 s/class, 10 s/class, 30 s/class, and 60 s/class
 SECONDS_CLASS="2"
@@ -57,7 +57,7 @@ NUM_CLASSES=$(jar -tf "$SRC_JAR" | grep -c '.class')
 TIME_LIMIT=$((NUM_CLASSES * SECONDS_CLASS))
 
 # Variable that stores command line inputs common among all commands
-CLI_INPUTS="java -Xbootclasspath/a:$JACOCO_JAR -javaagent:$JACOCO_JAR -classpath $SRC_JAR:$RANDOOP_JAR randoop.main.Main gentests --testjar=$SRC_JAR --time-limit=$TIME_LIMIT"
+RANDOOP_COMMAND="java -Xbootclasspath/a:$JACOCO_AGENT_JAR -javaagent:$JACOCO_AGENT_JAR -classpath $SRC_JAR:$RANDOOP_JAR randoop.main.Main gentests --testjar=$SRC_JAR --time-limit=$TIME_LIMIT"
 
 echo "Using Randoop to generate tests"
 echo
@@ -80,43 +80,43 @@ do
     echo
     TEST_DIRECTORY="$CURR_DIR"/build/testBloodhound
     mkdir "$TEST_DIRECTORY"
-    $CLI_INPUTS --method-selection=BLOODHOUND --junit-output-dir="$TEST_DIRECTORY"
+    $RANDOOP_COMMAND --method-selection=BLOODHOUND --junit-output-dir="$TEST_DIRECTORY"
 
     # echo "Using Orienteering"
     # echo
     # TEST_DIRECTORY="$CURR_DIR"/build/testOrienteering
     # mkdir "$TEST_DIRECTORY"
-    # $CLI_INPUTS --input-selection=ORIENTEERING --junit-output-dir="$TEST_DIRECTORY"
+    # $RANDOOP_COMMAND --input-selection=ORIENTEERING --junit-output-dir="$TEST_DIRECTORY"
 
     # echo "Using Bloodhound and Orienteering"
     # echo
     # TEST_DIRECTORY="$CURR_DIR"/build/testBloodhoundOrienteering
     # mkdir "$TEST_DIRECTORY"
-    # $CLI_INPUTS --input-selection=ORIENTEERING --method-selection=BLOODHOUND --junit-output-dir="$TEST_DIRECTORY"
+    # $RANDOOP_COMMAND --input-selection=ORIENTEERING --method-selection=BLOODHOUND --junit-output-dir="$TEST_DIRECTORY"
 
     # echo "Using Demand Driven"
     # echo
     # TEST_DIRECTORY="$CURR_DIR"/build/testDemandDriven
     # mkdir "$TEST_DIRECTORY"
-    # $CLI_INPUTS --demand-driven=true --junit-output-dir="$TEST_DIRECTORY"
+    # $RANDOOP_COMMAND --demand-driven=true --junit-output-dir="$TEST_DIRECTORY"
 
     # echo "Using GRT Fuzzing"
     # echo
     # TEST_DIRECTORY="$CURR_DIR"/build/testGrtFuzzing
     # mkdir "$TEST_DIRECTORY"
-    # $CLI_INPUTS --grt-fuzzing=true --grt-fuzzing-stddev=30.0 --junit-output-dir="$TEST_DIRECTORY"
+    # $RANDOOP_COMMAND --grt-fuzzing=true --grt-fuzzing-stddev=30.0 --junit-output-dir="$TEST_DIRECTORY"
 
     # echo "Using Elephant Brain"
     # echo
     # TEST_DIRECTORY="$CURR_DIR"/build/testElephantBrain
     # mkdir "$TEST_DIRECTORY"
-    # $CLI_INPUTS --elephant-brain=true --junit-output-dir="$TEST_DIRECTORY"
+    # $RANDOOP_COMMAND --elephant-brain=true --junit-output-dir="$TEST_DIRECTORY"
 
     # echo "Using Baseline Randoop"
     # echo
     # TEST_DIRECTORY="$CURR_DIR/build/testBaseline"
     # mkdir "$TEST_DIRECTORY"
-    # $CLI_INPUTS --junit-output-dir="$TEST_DIRECTORY"
+    # $RANDOOP_COMMAND --junit-output-dir="$TEST_DIRECTORY"
 
     echo    
     echo "Compiling and mutating project"
