@@ -11,7 +11,7 @@
 # The script will generate various mutants of the source project using Major and run these tests on those mutants.
 
 # Finally, each experiment can run a given amount of times and a given amount of seconds per class.
-# Various statistics of each iteration will be logged to a file "results/info.txt".
+# Various statistics of each iteration will be logged to a file "results/info.csv".
 # All other files logged to the "results" subdirectory are specific to the most recent iteration of the experiment.
 
 # Fail this script on errors.
@@ -41,6 +41,9 @@ RANDOOP_JAR=$(realpath "build/randoop-all-4.3.3.jar")
 # Link to jacoco agent jar. This is necessary for Bloodhound
 JACOCO_AGENT_JAR=$(realpath "build/jacocoagent.jar")
 
+# Link to jacoco cli jar. This is necessary for coverage report generation
+JACOCO_CLI_JAR=$(realpath "build/jacococli.jar")
+
 # The paper runs Randoop on 4 different time limits. These are: 2 s/class, 10 s/class, 30 s/class, and 60 s/class
 SECONDS_CLASS="2"
 
@@ -66,9 +69,11 @@ echo "Using Randoop to generate tests"
 echo
 
 # Output file for runtime information
-rm -f results/info.txt
 mkdir -p results/
-touch results/info.txt
+if [ ! -f "results/info.csv" ]; then
+    touch results/info.csv
+    echo -e "RandoopVersion,FileName,InstructionCoverage,BranchCoverage,MutationScore" > results/info.csv
+fi
 
 JAR_DIR="$3"
 CLASSPATH="$(echo "$JAR_DIR"/*.jar | tr ' ' ':')"
@@ -130,15 +135,46 @@ do
         "$MAJOR_HOME"/bin/ant -Dtest="$TEST_DIRECTORY" -Dsrc="$JAVA_SRC_DIR" -lib "$CLASSPATH" compile.tests
 
         echo
+        echo "Running tests with coverage"
+        echo '(ant -Dmutator="=mml:'"$MAJOR_HOME"'/mml/all.mml.bin" clean compile)'
+        echo
+        "$MAJOR_HOME"/bin/ant -Dmutator="mml:$MAJOR_HOME/mml/all.mml.bin" -Dtest="$TEST_DIRECTORY" -Dsrc="$JAVA_SRC_DIR" -lib "$CLASSPATH" test
+        mv jacoco.exec results
+        java -jar "$JACOCO_CLI_JAR" report "results/jacoco.exec" --classfiles "$SRC_JAR" --sourcefiles "$JAVA_SRC_DIR" --csv results/report.csv
+
+        # Calculate Instruction Coverage
+        inst_missed=$(awk -F, 'NR>1 {sum+=$4} END {print sum}' results/report.csv)
+        inst_covered=$(awk -F, 'NR>1 {sum+=$5} END {print sum}' results/report.csv)
+        instruction_coverage=$(echo "scale=4; $inst_covered / ($inst_missed + $inst_covered) * 100" | bc)
+        instruction_coverage=$(printf "%.2f" "$instruction_coverage")
+
+        # Calculate Branch Coverage
+        branch_missed=$(awk -F, 'NR>1 {sum+=$6} END {print sum}' results/report.csv)
+        branch_covered=$(awk -F, 'NR>1 {sum+=$7} END {print sum}' results/report.csv)
+        branch_coverage=$(echo "scale=4; $branch_covered / ($branch_missed + $branch_covered) * 100" | bc)
+        branch_coverage=$(printf "%.2f" "$branch_coverage")
+
+        echo "Instruction Coverage: $instruction_coverage%"
+        echo "Branch Coverage: $branch_coverage%"
+
+        echo
         echo "Run tests with mutation analysis"
         echo "(ant mutation.test)"
         "$MAJOR_HOME"/bin/ant -Dtest="$TEST_DIRECTORY" -lib "$CLASSPATH" mutation.test
 
-        # info.txt contains a record of each version of summary.csv that existed.
-        cat results/summary.csv >> results/info.txt
+        # Calculate Mutation Score
+        mutants_covered=$(awk -F, 'NR==2 {print $3}' results/summary.csv)
+        mutants_killed=$(awk -F, 'NR==2 {print $4}' results/summary.csv)
+        mutation_score=$(echo "scale=4; $mutants_killed / $mutants_covered * 100" | bc)
+        mutation_score=$(printf "%.2f" "$mutation_score")
+
+        echo "Mutation Score: $mutation_score%"
+
+        row="$RANDOOP_VERSION,$(basename "$SRC_JAR"),$instruction_coverage%,$branch_coverage%,$mutation_score%"
+        # info.csv contains a record of each pass.
+        echo -e "$row" >> results/info.csv
     done
 
-# Clean up dangling files
-mv jacoco.exec major.log mutants.log results
-
+    # Move all output files into results/ directory.
+    mv suppression.log major.log mutants.log results
 done
