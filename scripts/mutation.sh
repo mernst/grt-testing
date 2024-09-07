@@ -78,7 +78,7 @@ fi
 JAR_DIR="$3"
 CLASSPATH="$(echo "$JAR_DIR"/*.jar | tr ' ' ':')"
 
-# The feature names must not contain whitspace.
+# The feature names must not contain whitespace.
 ALL_RANDOOP_FEATURES=("BASELINE" "BLOODHOUND" "ORIENTEERING" "BLOODHOUND_AND_ORIENTEERING" "DETECTIVE" "GRT_FUZZING" "ELEPHANT_BRAIN" "CONSTANT_MINING")
 # The different features of Randoop to use. Adjust according to the features you are testing.
 RANDOOP_FEATURES=("BASELINE" "BLOODHOUND") #"ORIENTEERING" "BLOODHOUND_AND_ORIENTEERING" "DETECTIVE" "GRT_FUZZING" "ELEPHANT_BRAIN" "CONSTANT_MINING")
@@ -109,34 +109,41 @@ do
 
         RANDOOP_COMMAND_2="$RANDOOP_COMMAND --junit-output-dir=$TEST_DIRECTORY"
 
-        if [ "$RANDOOP_FEATURE" == "BLOODHOUND" ]; then
-            $RANDOOP_COMMAND_2 --method-selection=BLOODHOUND
-
-        elif [ "$RANDOOP_FEATURE" == "BASELINE" ]; then
-            $RANDOOP_COMMAND_2
-
-        elif [ "$RANDOOP_FEATURE" == "ORIENTEERING" ]; then
-            $RANDOOP_COMMAND_2 --input-selection=ORIENTEERING
-
-        elif [ "$RANDOOP_FEATURE" == "BLOODHOUND_AND_ORIENTEERING" ]; then
-            $RANDOOP_COMMAND_2 --input-selection=ORIENTEERING --method-selection=BLOODHOUND
-
-        elif [ "$RANDOOP_FEATURE" == "DETECTIVE" ]; then
-            $RANDOOP_COMMAND_2 --demand-driven=true
-
-        elif [ "$RANDOOP_FEATURE" == "GRT_FUZZING" ]; then
-            $RANDOOP_COMMAND_2 --grt-fuzzing=true
-
-        elif [ "$RANDOOP_FEATURE" == "ELEPHANT_BRAIN" ]; then
-            $RANDOOP_COMMAND_2 --elephant-brain=true
-
-        elif [ "$RANDOOP_FEATURE" == "CONSTANT_MINING" ]; then
-            $RANDOOP_COMMAND_2 --constant-mining=true
-
-        else
-            echo "Unknown RANDOOP_FEATURE = $RANDOOP_FEATURE"
-            exit 1
+        if [[ ( "$RANDOOP_FEATURE" == "BLOODHOUND" && "$ABLATION" != "true" ) || ( "$RANDOOP_FEATURE" != "BLOODHOUND" && "$ABLATION" == "true" ) ]]; then
+            RANDOOP_COMMAND_2="$RANDOOP_COMMAND_2 --method-selection=BLOODHOUND"
         fi
+
+        if [[ ( "$RANDOOP_FEATURE" == "BASELINE" && "$ABLATION" != "true" ) || ( "$RANDOOP_FEATURE" != "BASELINE" && "$ABLATION" == "true" ) ]]; then
+            ## There is nothing to do in this case.
+            # RANDOOP_COMMAND_2="$RANDOOP_COMMAND_2"
+            true
+        fi
+
+        if [[ ( "$RANDOOP_FEATURE" == "ORIENTEERING" && "$ABLATION" != "true" ) || ( "$RANDOOP_FEATURE" != "ORIENTEERING" && "$ABLATION" == "true" ) ]]; then
+            RANDOOP_COMMAND_2="$RANDOOP_COMMAND_2 --input-selection=ORIENTEERING"
+        fi
+
+        if [[ ( "$RANDOOP_FEATURE" == "BLOODHOUND_AND_ORIENTEERING" && "$ABLATION" != "true" ) || ( "$RANDOOP_FEATURE" != "BLOODHOUND_AND_ORIENTEERING" && "$ABLATION" == "true" ) ]]; then
+            RANDOOP_COMMAND_2="$RANDOOP_COMMAND_2 --input-selection=ORIENTEERING --method-selection=BLOODHOUND"
+        fi
+
+        if [[ ( "$RANDOOP_FEATURE" == "DETECTIVE" && "$ABLATION" != "true" ) || ( "$RANDOOP_FEATURE" != "DETECTIVE" && "$ABLATION" == "true" ) ]]; then
+            RANDOOP_COMMAND_2="$RANDOOP_COMMAND_2 --demand-driven=true"
+        fi
+
+        if [[ ( "$RANDOOP_FEATURE" == "GRT_FUZZING" && "$ABLATION" != "true" ) || ( "$RANDOOP_FEATURE" != "GRT_FUZZING" && "$ABLATION" == "true" ) ]]; then
+            RANDOOP_COMMAND_2="$RANDOOP_COMMAND_2 --grt-fuzzing=true"
+        fi
+
+        if [[ ( "$RANDOOP_FEATURE" == "ELEPHANT_BRAIN" && "$ABLATION" != "true" ) || ( "$RANDOOP_FEATURE" != "ELEPHANT_BRAIN" && "$ABLATION" == "true" ) ]]; then
+            RANDOOP_COMMAND_2="$RANDOOP_COMMAND_2 --elephant-brain=true"
+        fi
+
+        if [[ ( "$RANDOOP_FEATURE" == "CONSTANT_MINING" && "$ABLATION" != "true" ) || ( "$RANDOOP_FEATURE" != "CONSTANT_MINING" && "$ABLATION" == "true" ) ]]; then
+            RANDOOP_COMMAND_2="$RANDOOP_COMMAND_2 --constant-mining=true"
+        fi
+
+        $RANDOOP_COMMAND_2
 
         echo
         echo "Compiling and mutating project"
