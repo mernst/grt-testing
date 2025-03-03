@@ -1,3 +1,5 @@
+MAKEFILE_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+
 all: build/jacoco.jar build/randoop-all-4.3.3.jar build/major results/
 
 build/jacoco.jar:
@@ -7,12 +9,30 @@ build/jacoco.jar:
 
 build/randoop-all-4.3.3.jar:
 	mkdir -p build
-	cd build && wget -nv https://github.com/randoop/randoop/releases/download/v4.3.3/randoop-all-4.3.3.jar
+	cd build
+	wget -nv https://github.com/randoop/randoop/releases/download/v4.3.3/randoop-all-4.3.3.jar
 
 build/major:
 	mkdir -p build
-	cd build && wget -nv http://mutation-testing.org/major-latest.zip
-	cd build && unzip -o major-latest.zip
+	cd build && wget -nv https://mutation-testing.org/downloads/files/major-2.2.0_jre8.zip
+	cd build && unzip -o major-2.2.0_jre8.zip
+
+build/randoop:
+	mkdir -p build
+	cd build && git clone git@github.com:randoop/randoop.git
+
+randoop-from-source:
+	cd build/randoop && \
+	git pull && \
+	. "${MAKEFILE_DIR}usejdk.sh" && \
+	. ../../usejdk.sh && \
+	usejdk11 && \
+	./gradlew shadowJar && \
+	mv -f build/libs/randoop-all-4.3.3.jar agent/replacecall/build/libs/replacecall-4.3.3.jar .. && \
+	usejdk8
+
+build/libs/randoop-all-4.3.3.jar:
+	mv -f build/libs/randoop-all-4.3.3.jar agent/replacecall/build/libs/replacecall-4.3.3.jar ..
 
 results/:
 	mkdir -p results
@@ -20,8 +40,11 @@ results/:
 clean:
 	rm -rf build results
 
-SH_SCRIPTS   = $(shell grep -r -l '^\#! \?\(/bin/\|/usr/bin/env \)sh'   * | grep -v /.git/ | grep -v '~$$' | grep -v '\.tar$$' | grep -v addrfilter | grep -v cronic-orig | grep -v gradlew | grep -v mail-stackoverflow.sh)
-BASH_SCRIPTS = $(shell grep -r -l '^\#! \?\(/bin/\|/usr/bin/env \)bash' * | grep -v /.git/ | grep -v '~$$' | grep -v '\.tar$$' | grep -v addrfilter | grep -v cronic-orig | grep -v gradlew | grep -v mail-stackoverflow.sh)
+src:
+	get-all-subject-src.sh
+
+SH_SCRIPTS   = $(shell grep -r -l '^\#! \?\(/bin/\|/usr/bin/env \)sh'   * | grep -v /.git/ | grep -v '~$$' | grep -v '\.tar$$' | grep -v addrfilter | grep -v cronic-orig | grep -v gradlew | grep -v mail-stackoverflow.sh | grep -v build/)
+BASH_SCRIPTS = $(shell grep -r -l '^\#! \?\(/bin/\|/usr/bin/env \)bash' * | grep -v /.git/ | grep -v '~$$' | grep -v '\.tar$$' | grep -v addrfilter | grep -v cronic-orig | grep -v gradlew | grep -v mail-stackoverflow.sh | grep -v build/)
 
 shell-script-style:
 	shellcheck -x -P SCRIPTDIR --format=gcc ${SH_SCRIPTS} ${BASH_SCRIPTS}
