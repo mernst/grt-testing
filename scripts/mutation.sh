@@ -547,7 +547,7 @@ for i in $(seq 1 "$NUM_LOOP"); do
     fi
 
     # We cd into the result directory because Randoop generates jacoco.exec in the directory in
-    # which it is run. This is a concurrency issue since multiple runs will output a jacoco file to 
+    # which it is run. This is a concurrency issue since multiple runs will output a jacoco file to
     # the exact same spot. Each result directory is unique to each instance of this script.
     cd "$RESULT_DIR"
 
