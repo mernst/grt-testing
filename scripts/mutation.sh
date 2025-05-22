@@ -73,10 +73,10 @@ if [[ "$JAVA_VER" -ne 18 ]]; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)"
-MAJOR_HOME=$(realpath "${SCRIPT_DIR}/build/major/")                 # Major home directory, for mutation testing
-RANDOOP_JAR=$(realpath "${SCRIPT_DIR}/build/randoop-all-4.3.3.jar") # Randoop jar file
-JACOCO_AGENT_JAR=$(realpath "${SCRIPT_DIR}/build/jacocoagent.jar")  # For Bloodhound
-JACOCO_CLI_JAR=$(realpath "${SCRIPT_DIR}/build/jacococli.jar")      # For coverage report generation
+MAJOR_HOME=$(realpath "${SCRIPT_DIR}/build/major/")                     # Major home directory, for mutation testing
+RANDOOP_JAR=$(realpath "${SCRIPT_DIR}/build/randoop-all-4.3.3.jar")     # Randoop jar file
+JACOCO_AGENT_JAR=$(realpath "${SCRIPT_DIR}/build/jacocoagent.jar")      # For Bloodhound
+JACOCO_CLI_JAR=$(realpath "${SCRIPT_DIR}/build/jacococli.jar")          # For coverage report generation
 REPLACECALL_JAR=$(realpath "${SCRIPT_DIR}/build/replacecall-4.3.3.jar") # For replacing undesired method calls
 
 #===============================================================================
