@@ -59,7 +59,7 @@
                mutationAnalysis="true"
                excludeFailingTests="false"
                serializedMapsFile="${resultdir}/preprocessing.ser"
-               mutantsLogFile="mutants.log"
+               mutantsLogFile="${resultdir}/mutants.log"
                summaryFile="${resultdir}/summary.csv"
                mutantDetailsFile="${resultdir}/details.csv"
                covMapFile="${resultdir}/covMap.csv"

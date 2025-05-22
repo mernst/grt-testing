@@ -30,9 +30,9 @@
     </target>
 
     <path id="compile.classpath">
-        <pathelement location="../subject-programs/src/JSAP-2.1/lib/rundoc-0.11.jar"/>
-        <pathelement location="../subject-programs/src/JSAP-2.1/lib/snip-0.11.jar"/>
-        <pathelement location="../subject-programs/src/JSAP-2.1/lib/xstream-1.1.2.jar"/>
+        <pathelement location="${basedir}/../subject-programs/src/JSAP-2.1/lib/rundoc-0.11.jar"/>
+        <pathelement location="${basedir}/../subject-programs/src/JSAP-2.1/lib/snip-0.11.jar"/>
+        <pathelement location="${basedir}/../subject-programs/src/JSAP-2.1/lib/xstream-1.1.2.jar"/>
     </path>
 
 <!-- Target to compile the project -->
@@ -66,7 +66,7 @@
                mutationAnalysis="true"
                excludeFailingTests="false"
                serializedMapsFile="${resultdir}/preprocessing.ser"
-               mutantsLogFile="mutants.log"
+               mutantsLogFile="${resultdir}/mutants.log"
                summaryFile="${resultdir}/summary.csv"
                mutantDetailsFile="${resultdir}/details.csv"
                covMapFile="${resultdir}/covMap.csv"
