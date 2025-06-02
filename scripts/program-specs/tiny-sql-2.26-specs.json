@@ -23,7 +23,7 @@
           "description": "oldString must be non-empty",
           "guard": {
             "condition": "oldString != null && oldString.length() != 0",
-            "description": "objCollectionQueue must be non-empty"
+            "description": "oldString must be non-empty"
           }
         }
       ],
