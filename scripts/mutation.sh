@@ -73,11 +73,12 @@ if [[ "$JAVA_VER" -ne 18 ]]; then
 fi
 
 SCRIPT_DIR="$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd -P)"
-MAJOR_HOME=$(realpath "${SCRIPT_DIR}/build/major/")                     # Major home directory, for mutation testing
-RANDOOP_JAR=$(realpath "${SCRIPT_DIR}/build/randoop-all-4.3.4.jar")     # Randoop jar file
-JACOCO_AGENT_JAR=$(realpath "${SCRIPT_DIR}/build/jacocoagent.jar")      # For Bloodhound
-JACOCO_CLI_JAR=$(realpath "${SCRIPT_DIR}/build/jacococli.jar")          # For coverage report generation
-REPLACECALL_JAR=$(realpath "${SCRIPT_DIR}/build/replacecall-4.3.3.jar") # For replacing undesired method calls
+MAJOR_HOME=$(realpath "${SCRIPT_DIR}/build/major/")                                                       # Major home directory, for mutation testing
+RANDOOP_JAR=$(realpath "${SCRIPT_DIR}/build/randoop-all-4.3.4.jar")                                       # Randoop jar file
+JACOCO_AGENT_JAR=$(realpath "${SCRIPT_DIR}/build/jacocoagent.jar")                                        # For Bloodhound
+JACOCO_CLI_JAR=$(realpath "${SCRIPT_DIR}/build/jacococli.jar")                                            # For coverage report generation
+REPLACECALL_JAR=$(realpath "${SCRIPT_DIR}/build/replacecall-4.3.3.jar")                                   # For replacing undesired method calls
+CHECKER_QUAL_JAR=$(realpath "${SCRIPT_DIR}/build/checker-framework-3.49.5/checker/dist/checker-qual.jar") # For Randoop Impurity
 
 #===============================================================================
 # Argument Parsing & Experiment Configuration
@@ -391,7 +392,7 @@ RANDOOP_BASE_COMMAND="java \
 -Xbootclasspath/a:$JACOCO_AGENT_JAR:$REPLACECALL_JAR \
 -javaagent:$JACOCO_AGENT_JAR \
 -javaagent:$REPLACECALL_COMMAND \
--classpath $RANDOOP_CLASSPATH:$RANDOOP_JAR \
+-classpath $RANDOOP_CLASSPATH:$RANDOOP_JAR:$CHECKER_QUAL_JAR \
 randoop.main.Main gentests \
 --testjar=$SRC_JAR \
 --time-limit=$TIME_LIMIT \

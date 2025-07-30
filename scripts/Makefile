@@ -1,6 +1,6 @@
 MAKEFILE_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
-all: build/jacoco.jar build/major build/major/bin/ant-replacecall build/randoop-all-4.3.4.jar build/randoop build/replacecall-4.3.3.jar results
+all: build/jacoco.jar build/major build/major/bin/ant-replacecall build/randoop-all-4.3.4.jar build/randoop build/replacecall-4.3.3.jar build/checker-framework-3.49.5 results
 
 build/jacoco.jar:
 	mkdir -p build
@@ -37,6 +37,10 @@ build/major/bin/ant-replacecall:
 	LATEST_RELEASE=$$(curl -s https://api.github.com/repos/randoop/grt-replacecall/releases/latest | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4) && \
 	wget "https://github.com/randoop/grt-replacecall/releases/download/$${LATEST_RELEASE}/ant-replacecall" && \
 	mv ant-replacecall build/major/bin/
+
+build/checker-qual.jar:
+	cd build && wget "https://github.com/typetools/checker-framework/releases/download/checker-framework-3.49.5/checker-framework-3.49.5.zip"
+	cd build && unzip -o checker-framework-3.49.5.zip
 
 results:
 	mkdir -p results
