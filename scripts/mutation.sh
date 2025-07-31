@@ -78,7 +78,7 @@ RANDOOP_JAR=$(realpath "${SCRIPT_DIR}/build/randoop-all-4.3.4.jar")             
 JACOCO_AGENT_JAR=$(realpath "${SCRIPT_DIR}/build/jacocoagent.jar")                                        # For Bloodhound
 JACOCO_CLI_JAR=$(realpath "${SCRIPT_DIR}/build/jacococli.jar")                                            # For coverage report generation
 REPLACECALL_JAR=$(realpath "${SCRIPT_DIR}/build/replacecall-4.3.3.jar")                                   # For replacing undesired method calls
-CHECKER_QUAL_JAR=$(realpath "${SCRIPT_DIR}/build/checker-framework-3.49.5/checker/dist/checker-qual.jar") # For Randoop Impurity
+CHECKER_QUAL_JAR=$(realpath "${SCRIPT_DIR}/build/checker-framework/checker/dist/checker-qual.jar")        # For Randoop Impurity
 
 #===============================================================================
 # Argument Parsing & Experiment Configuration
