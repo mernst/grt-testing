@@ -1,7 +1,7 @@
 MAKEFILE_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 all: \
-    build/checker-framework/checker/dist/checker-qual.jar
+    build/checker-framework/checker/dist/checker-qual.jar \
     build/evosuite-1.2.0.jar \
     build/evosuite-standalone-runtime-1.2.0.jar \
     build/hamcrest-core-1.3.jar \
