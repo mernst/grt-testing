@@ -74,7 +74,7 @@ build/major/bin/ant-replacecall:
 build/checker-framework/checker/dist/checker-qual.jar:
 	mkdir -p build
 	CFVER=3.50.0 && \
-	cd build && wget -nv "https://github.com/typetools/checker-framework/releases/download/checker-framework-$${CFVER}/checker-framework-$${CFVER}.zip" && \
+	cd build && wget "https://github.com/typetools/checker-framework/releases/download/checker-framework-$${CFVER}/checker-framework-$${CFVER}.zip" && \
 	unzip -o checker-framework-$${CFVER}.zip && \
 	rm -rf checker-framework && \
 	mv checker-framework-$${CFVER} checker-framework
