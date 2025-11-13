@@ -44,11 +44,6 @@ USAGE_STRING="usage: mutation-evosuite.sh [-o RESULTS_CSV] [-t total_time] [-c t
 set -e
 set -o pipefail
 
-if [ $# -eq 0 ]; then
-  echo "$0: $USAGE_STRING"
-  exit 1
-fi
-
 #===============================================================================
 # Environment Setup
 #===============================================================================
@@ -57,12 +52,13 @@ fi
 JAVA_VER=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | awk -F '.' '{sub("^$", "0", $2); print $1$2}')
 if [[ "$JAVA_VER" -ne 18 ]]; then
   echo "Error: Java version 8 is required. Please install it and try again."
-  exit 1
+  exit 2
 fi
 
 Generator=EvoSuite
 generator=evosuite
 SCRIPT_DIR="$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd -P)"
+SCRIPT_NAME=$(basename -- "$0")
 MAJOR_HOME=$(realpath "${SCRIPT_DIR}/build/major/")               # Major home directory, for mutation testing
 EVOSUITE_JAR=$(realpath "${SCRIPT_DIR}/build/evosuite-1.2.0.jar") # EvoSuite jar file
 JACOCO_CLI_JAR=$(realpath "${SCRIPT_DIR}/build/jacococli.jar")    # For coverage report generation
@@ -70,6 +66,11 @@ JACOCO_CLI_JAR=$(realpath "${SCRIPT_DIR}/build/jacococli.jar")    # For coverage
 #===============================================================================
 # Argument Parsing & Experiment Configuration
 #===============================================================================
+
+if [ $# -eq 0 ]; then
+  echo "${SCRIPT_NAME}: $USAGE_STRING"
+  exit 2
+fi
 
 NUM_LOOP=1      # Number of experiment runs (10 in GRT paper)
 VERBOSE=0       # Verbose option
@@ -110,14 +111,14 @@ while getopts ":hvro:t:c:n:" opt; do
       NUM_LOOP="$OPTARG"
       ;;
     \?)
-      echo "Invalid option: -$OPTARG" >&2
+      echo "${SCRIPT_NAME}: invalid option: -$OPTARG" >&2
       echo "$USAGE_STRING"
-      exit 1
+      exit 2
       ;;
     :)
-      echo "Option -$OPTARG requires an argument." >&2
+      echo "${SCRIPT_NAME}: option -$OPTARG requires an argument." >&2
       echo "$USAGE_STRING"
-      exit 1
+      exit 2
       ;;
   esac
 done
@@ -125,13 +126,13 @@ done
 shift $((OPTIND - 1))
 
 if [[ -z "$RESULTS_CSV" ]]; then
-  echo "No -o command-line argument given."
+  echo "${SCRIPT_NAME}: No -o command-line argument given."
   exit 2
 fi
 
 # Enforce that mutually exclusive options are not bundled together
 if [[ -n "$TOTAL_TIME" ]] && [[ -n "$SECONDS_PER_CLASS" ]]; then
-  echo "Options -t and -c cannot be used together in any form (e.g., -t -c)."
+  echo "${SCRIPT_NAME}: Options -t and -c cannot be used together in any form (e.g., -t -c)."
   exit 2
 fi
 
@@ -518,7 +519,7 @@ for i in $(seq 1 "$NUM_LOOP"); do
     PYTHON_EXECUTABLE=$(command -v python3 2> /dev/null || command -v python 2> /dev/null)
     if [ -z "$PYTHON_EXECUTABLE" ]; then
       echo "Error: Python is not installed." >&2
-      exit 1
+      exit 2
     fi
     "$PYTHON_EXECUTABLE" "$SCRIPT_DIR"/convert_test_runners.py "$TEST_DIRECTORY" --mode evosuite-to-randoop
   fi
