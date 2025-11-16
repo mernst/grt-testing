@@ -70,6 +70,7 @@ require_file "$RANDOOP_JAR"
 require_file "$JACOCO_AGENT_JAR"
 require_file "$JACOCO_CLI_JAR"
 require_file "$REPLACECALL_JAR"
+require_file "$CHECKER_QUAL_JAR"
 
 usejdk8
 JAVA_VER=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | awk -F '.' '{sub("^$", "0", $2); print ($1=="1")?$2:$1}')
@@ -220,7 +221,7 @@ echo
 SRC_BASE_DIR="$(realpath "$SCRIPT_DIR/../subject-programs/src/$SUBJECT_PROGRAM")"
 
 # Path to the jar file of the subject program.
-if [[ " ${RANDOOP_FEATURES[*]} " =~ "GRT_FUZZING" ]]; then
+if [[ -n "${FEATURE_FLAGS[GRT_FUZZING]}" ]]; then
   # If randoop features contain "GRT_FUZZING", use annotated subject program jar.
   SRC_JAR=$(realpath "$SCRIPT_DIR/../subject-programs/annotated-jars/$SUBJECT_PROGRAM.jar")
 else
