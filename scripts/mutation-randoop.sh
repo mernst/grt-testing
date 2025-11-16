@@ -221,7 +221,6 @@ echo
 SRC_BASE_DIR="$(realpath "$SCRIPT_DIR/../subject-programs/src/$SUBJECT_PROGRAM")"
 
 if [[ " ${RANDOOP_FEATURES[*]} " =~ " GRT_FUZZING " ]]; then
-  echo "hi"
   # If randoop features contain "GRT_FUZZING", use annotated subject program jar.
   ANNOTATED_JAR="$SCRIPT_DIR/../subject-programs/annotated-jars/$SUBJECT_PROGRAM.jar"
   if [ ! -f "$ANNOTATED_JAR" ]; then
@@ -229,11 +228,10 @@ if [[ " ${RANDOOP_FEATURES[*]} " =~ " GRT_FUZZING " ]]; then
     exit 2
   fi
   SRC_JAR=$(realpath "$ANNOTATED_JAR")
- else
-  echo "hi2"
+else
   # Else, use the original subject program jar.
   SRC_JAR=$(realpath "$SCRIPT_DIR/../subject-programs/jars/$SUBJECT_PROGRAM.jar")
- fi
+fi
 
 # Number of classes in given jar file.
 NUM_CLASSES=$(jar -tf "$SRC_JAR" | grep -c '.class')
