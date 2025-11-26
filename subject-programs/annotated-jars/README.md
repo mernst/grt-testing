@@ -9,7 +9,13 @@ resources are altered.
 
 ## Why the annotations matter
 
-The `GRT_FUZZING` feature in `scripts/mutation-randoop.sh` loads these annotated artifacts and, for each method, determines whether it is pure (no state change) or impure (mutates the receiver, its arguments, or global state). During fuzzing, we prioritize impure calls to mutate an object’s state before exercising additional API entry points. This produces many more distinct runtime states than repeatedly calling pure methods, which in turn helps Randoop uncover deeper behaviors and tricky branch conditions.
+The `GRT_FUZZING` feature in `scripts/mutation-randoop.sh` loads these annotated
+artifacts and, for each method, determines whether it is pure (no state change)
+or impure (mutates the receiver, its arguments, or global state). During
+fuzzing, we prioritize impure calls to mutate an object’s state before
+exercising additional API entry points. This produces many more distinct runtime
+states than repeatedly calling pure methods, which in turn helps Randoop uncover
+deeper behaviors and tricky branch conditions.
 
 ## Rebuilding an annotated JAR
 
