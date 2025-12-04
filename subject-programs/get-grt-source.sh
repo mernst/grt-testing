@@ -20,9 +20,8 @@ grt_clone() {
   else
     echo " cloning."
     git clone -q https://github.com/randoop/grt-"$1" "$1" \
-      || (which git \
-        && echo git clone https://github.com/randoop/grt-"$1" "$1" \
-        && git clone https://github.com/randoop/grt-"$1" "$1")
+      || { echo "Error: Failed to clone grt-$1. Retrying without -q..." >&2; \
+           git clone https://github.com/randoop/grt-"$1" "$1"; }
   fi
 }
 
