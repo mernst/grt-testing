@@ -12,18 +12,12 @@ from urllib.request import urlretrieve
 import yaml
 from yaml.loader import SafeLoader
 
-# open yaml file in read
-
 script_directory = pathlib.Path(__file__).parent.resolve()
 
 with pathlib.Path(script_directory / "build-info.yaml").open() as f:
     yaml_data = list(yaml.load_all(f, Loader=SafeLoader))
 
 src_upstream_dir = script_directory / "src-upstream"
-# if os.path.exists(src_upstream_dir):
-#     src_upstream_old_dir = script_directory / "src-upstream-OLD"
-#     shutil.rmtree(src_upstream_old_dir, ignore_errors=True)
-#     os.rename(src_upstream_dir, src_upstream_old_dir)
 src_upstream_dir.mkdir(exist_ok=True)
 
 for project in yaml_data:

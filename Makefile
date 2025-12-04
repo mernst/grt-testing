@@ -21,11 +21,6 @@ style-check: python-style-check python-typecheck shell-style-check
 
 PYTHON_FILES:=$(wildcard *.py) $(wildcard **/*.py) $(shell grep -r -l --exclude='*.py' --exclude='*~' --exclude='*.tar' --exclude=gradlew --exclude-dir=.git '^\#! \?\(/bin/\|/usr/bin/env \)python')
 PYTHON_FILES_TO_CHECK:=$(filter-out ${lcb_runner},${PYTHON_FILES})
-RUFF := $(shell if command -v ruff > /dev/null ; then \
-	  echo "ruff" ; \
-	else \
-	  echo "~/.local/bin/ruff" ; \
-	fi)
 python-style-fix:
 ifneq (${PYTHON_FILES_TO_CHECK},)
 	@uvx ruff --version
