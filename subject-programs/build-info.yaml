@@ -19,7 +19,7 @@ version: 5.0.1
 dir: asm-5.0.1
 source: https://repo1.maven.org/maven2/org/ow2/asm/asm/5.0.1/asm-5.0.1-sources.jar
 extraction-dir: asm-5.0.1
-post-extract-command: mkdir -p asm-5.0.1/src/main/java && mv asm-5.0.1/org asm-5.0.1/src/main/java/ && /home/mernst/bin/src/plume-scripts/preplace org\.objectweb\.asm org1.objectweb.asm asm-5.0.1 && /home/mernst/bin/src/plume-scripts/preplace org\.apache\.xalan org1.apache.xalan asm-5.0.1 && /home/mernst/bin/src/plume-scripts/preplace § Section asm-5.0.1
+post-extract-command: mkdir -p asm-5.0.1/src/main/java && mv asm-5.0.1/org asm-5.0.1/src/main/java/ && ../.plume-scripts/preplace org\.objectweb\.asm org1.objectweb.asm asm-5.0.1 && ../.plume-scripts/preplace org\.apache\.xalan org1.apache.xalan asm-5.0.1 && ../.plume-scripts/preplace § Section asm-5.0.1
 build-dir: .
 build-command: mvn -B clean package -Dmaven.test.failure.ignore -Dmaven.javadoc.skip 2>&1 | tee mvn-output.txt
 jar-dir: target
@@ -164,7 +164,7 @@ version: 1.5.1
 dir: javax.mail-1.5.1
 source: https://repo1.maven.org/maven2/com/sun/mail/javax.mail/1.5.1/javax.mail-1.5.1-sources.jar
 extraction-dir: javax.mail-1.5.1
-post-extract-command: mkdir -p javax.mail-1.5.1/src/main/java && mv javax.mail-1.5.1/com javax.mail-1.5.1/javax javax.mail-1.5.1/src/main/java/ && /home/mernst/bin/src/plume-scripts/preplace com\.sun\.mail com.sun1.mail javax.mail-1.5.1  && /home/mernst/bin/src/plume-scripts/preplace javax\.mail javax1.mail javax.mail-1.5.1
+post-extract-command: mkdir -p javax.mail-1.5.1/src/main/java && mv javax.mail-1.5.1/com javax.mail-1.5.1/javax javax.mail-1.5.1/src/main/java/ && ../.plume-scripts/preplace com\.sun\.mail com.sun1.mail javax.mail-1.5.1 && ../.plume-scripts/preplace javax\.mail javax1.mail javax.mail-1.5.1
 build-dir: .
 build-command: mvn -B clean package -Dmaven.test.failure.ignore -Dmaven.javadoc.skip 2>&1 | tee mvn-output.txt
 jar-dir: target
@@ -260,7 +260,7 @@ project: Slf4j-api
 version: 1.7.12
 dir: slf4j-api-1.7.12
 source: https://github.com/qos-ch/slf4j/archive/refs/tags/v_1.7.12.zip
-post-extract-command: mv slf4j-v_1.7.12 slf4j-api-1.7.12 && rm -rf slf4j-api-1.7.12/integration slf4j-api-1.7.12/jcl-over-slf4j slf4j-api-1.7.12/jul-to-slf4j slf4j-api-1.7.12/log4j-over-slf4j slf4j-api-1.7.12/osgi-over-slf4j slf4j-api-1.7.12/slf4j-android slf4j-api-1.7.12/slf4j-ext slf4j-api-1.7.12/slf4j-jcl slf4j-api-1.7.12/slf4j-jdk14 slf4j-api-1.7.12/slf4j-log4j12 slf4j-api-1.7.12/slf4j-migrator slf4j-api-1.7.12/slf4j-nop slf4j-api-1.7.12/slf4j-simple slf4j-api-1.7.12/slf4j-site slf4j-api-1.7.12/src && /home/mernst/bin/src/plume-scripts/preplace org\.slf4j\. org1.slf4j. slf4j-api-1.7.12 && /home/mernst/bin/src/plume-scripts/preplace org\.slf4j; org1.slf4j; slf4j-api-1.7.12
+post-extract-command: mv slf4j-v_1.7.12 slf4j-api-1.7.12 && rm -rf slf4j-api-1.7.12/integration slf4j-api-1.7.12/jcl-over-slf4j slf4j-api-1.7.12/jul-to-slf4j slf4j-api-1.7.12/log4j-over-slf4j slf4j-api-1.7.12/osgi-over-slf4j slf4j-api-1.7.12/slf4j-android slf4j-api-1.7.12/slf4j-ext slf4j-api-1.7.12/slf4j-jcl slf4j-api-1.7.12/slf4j-jdk14 slf4j-api-1.7.12/slf4j-log4j12 slf4j-api-1.7.12/slf4j-migrator slf4j-api-1.7.12/slf4j-nop slf4j-api-1.7.12/slf4j-simple slf4j-api-1.7.12/slf4j-site slf4j-api-1.7.12/src && ../.plume-scripts/preplace org\.slf4j\. org1.slf4j. slf4j-api-1.7.12 && ../.plume-scripts/preplace org\.slf4j; org1.slf4j; slf4j-api-1.7.12
 build-dir: slf4j-api
 build-command: mvn -B clean package -Dmaven.test.failure.ignore -Dmaven.javadoc.skip 2>&1 | tee mvn-output.txt
 jar-dir: target

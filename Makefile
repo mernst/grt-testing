@@ -8,6 +8,9 @@ clean:
 	rm -rf "$GRT_TESTING_ROOT"/build/randoop-tests/*
 	rm -rf "$GRT_TESTING_ROOT"/build/target/*
 
+.plume-scripts:
+	git clone -q https://github.com/plume-lib/plume-scripts.git .plume-scripts
+
 
 ###########################################################################
 ### Style
