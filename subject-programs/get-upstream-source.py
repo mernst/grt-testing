@@ -31,7 +31,7 @@ for project in yaml_data:
     source = project["source"]
     proj_dir = project["dir"]
     project_dir = src_upstream_dir / proj_dir
-    if pathlib.Path(project_dir).is_dir():
+    if project_dir.is_dir():
         print("Skipping", proj_dir, "because it exists.")
         continue
     print("About to get", source)
@@ -53,15 +53,16 @@ for project in yaml_data:
             with tarfile.open(archive_path, "r:gz") as tar:
                 tar.extractall(path=dest_dir)
         else:
-            raise Exception("What type of archive file?", source)
+        else:
+            raise Exception(f"Unknown archive type: {source}")
     else:
         command = shlex.split(source)
         print("command = ", command)
-        completed_process = subprocess.run(command, cwd=src_upstream_dir)
+        completed_process = subprocess.run(command, cwd=src_upstream_dir, capture_output=True, text=True)
         if completed_process.returncode != 0:
             print("stdout", completed_process.stdout)
             print("stderr", completed_process.stderr)
-            raise Exception("command failed: ", command)
+            raise Exception(f"Command failed: {' '.join(command)}")
     key = "post-extract-command"
     if key in project:
         commands = project[key].split(" && ")
