@@ -16,6 +16,8 @@ The annotations provide the information it needs.
 
 ## Rebuilding an annotated JAR
 
+### Setup
+
 1. **Fetch sources**: From the top level (`../../`), run
    `scripts/get-all-subject-src.sh` to populate
    `subject-programs/src/<subject-program>/`.
@@ -32,11 +34,11 @@ The annotations provide the information it needs.
    The resulting jar appears in `subject-programs/jars/`
    or the subject's usual build folder.
 
-Now, do the following per project:
+### Do the following per project
 
-4. **Create the classpath**: Create a file `wpi-classpath.txt` with the
+1. **Create the classpath**: Create a file `wpi-classpath.txt` with the
    project's dependencies, one per line.
-   
+
    This command tries `mvn`; if that doesn't work, assume that the Ant ships
    extra JARs in a local `jars/` or `lib/` folder.
 
@@ -45,8 +47,8 @@ Now, do the following per project:
      find jars -name '*.jar' > wpi-classpath.txt
      find lib -name '*.jar' >> wpi-classpath.txt
    ```
-      
-5. **Run inference**: From the subject directory, execute:
+
+2. **Run inference**: From the subject directory, execute:
 
    ```sh
    $CHECKERFRAMEWORK/checker/bin/infer-and-annotate.sh \
@@ -57,7 +59,7 @@ Now, do the following per project:
 
    The script rewrites the sources in place with the inferred annotations.
 
-6. **Rebuild**: Repeat the command from step 2 to produce an annotated JAR.
+3. **Rebuild**: Repeat the command from step 2 to produce an annotated JAR.
    Copy it to this folder.
 
 ### Worked example (a4j-1.0b)
