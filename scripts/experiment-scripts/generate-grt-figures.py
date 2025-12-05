@@ -28,7 +28,6 @@ import sys
 
 import matplotlib.figure
 import matplotlib.pyplot as plt
-import matplotlib.figure
 import seaborn as sns
 from matplotlib.backends.backend_pdf import PdfPages
 
