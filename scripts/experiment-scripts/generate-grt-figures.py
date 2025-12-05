@@ -23,14 +23,16 @@ Usage (for reference only):
 import matplotlib as mpl
 import pandas as pd
 
-mpl.use("Agg")  # For headless environments (without GUI)
 import argparse
 import sys
 
+import matplotlib.figure
 import matplotlib.pyplot as plt
 import matplotlib.figure
 import seaborn as sns
 from matplotlib.backends.backend_pdf import PdfPages
+
+mpl.use("Agg")  # For headless environments (without GUI)
 
 
 def main():
