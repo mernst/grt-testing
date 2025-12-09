@@ -35,3 +35,4 @@ checkbashisms
 jacoco.exec
 
 .plume-scripts/
+.pymarkdown
