@@ -344,5 +344,74 @@
     ],
     "post": [],
     "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.cli.Options",
+      "name": "toString",
+      "parameterTypes": []
+    },
+    "identifiers": {
+      "parameters": [],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Prevent infinite recursion in toString",
+        "guard": {
+          "condition": "false",
+          "description": "Options.toString() can cause infinite recursion with circular Option references"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.cli.OptionGroup",
+      "name": "toString",
+      "parameterTypes": []
+    },
+    "identifiers": {
+      "parameters": [],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Prevent infinite recursion in toString",
+        "guard": {
+          "condition": "false",
+          "description": "OptionGroup.toString() can cause infinite recursion with circular Option references"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.cli.Option",
+      "name": "toString",
+      "parameterTypes": []
+    },
+    "identifiers": {
+      "parameters": [],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Prevent infinite recursion in toString",
+        "guard": {
+          "condition": "false",
+          "description": "Option.toString() can cause infinite recursion with circular references to Options/OptionGroup"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
   }
 ]

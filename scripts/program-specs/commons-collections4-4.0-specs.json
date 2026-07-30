@@ -32,5 +32,61 @@
     ],
     "post": [],
     "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.collections4.list.GrowthList",
+      "name": "set",
+      "parameterTypes": [
+        "int",
+        "java.lang.Object"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "index",
+        "element"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Index must be reasonable to avoid OutOfMemoryError",
+        "guard": {
+          "condition": "index >= 0 && index < 10000",
+          "description": "Index must be between 0 and 10000 to prevent excessive memory allocation."
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.collections4.list.GrowthList",
+      "name": "<init>",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "initialCapacity"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Initial capacity must be reasonable",
+        "guard": {
+          "condition": "initialCapacity >= 0 && initialCapacity < 10000",
+          "description": "Initial capacity must be between 0 and 10000 to prevent excessive memory allocation."
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
   }
 ]

@@ -3,6 +3,52 @@
     "operation": {
       "classname": "org.apache.commons.math3.analysis.differentiation.DerivativeStructure",
       "name": "DerivativeStructure",
+      "parameterTypes": [ "int", "int" ]
+    },
+    "identifiers": {
+      "parameters": [ "parameters", "order" ],
+      "receiverName": "this",
+      "returnName": "instance"
+    },
+    "pre": [
+      {
+        "description": "Parameters and derivation order must be constrained to prevent excessive computation",
+        "guard": {
+          "condition": "parameters > 0 && parameters <= 20 && order >= 0 && order <= 20",
+          "description": "parameters and order are between 1-20 and 0-20 respectively"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.analysis.differentiation.DerivativeStructure",
+      "name": "DerivativeStructure",
+      "parameterTypes": [ "int", "int", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "parameters", "order", "value" ],
+      "receiverName": "this",
+      "returnName": "instance"
+    },
+    "pre": [
+      {
+        "description": "Parameters and derivation order must be constrained to prevent excessive computation",
+        "guard": {
+          "condition": "parameters > 0 && parameters <= 20 && order >= 0 && order <= 20",
+          "description": "parameters and order are between 1-20 and 0-20 respectively"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.analysis.differentiation.DerivativeStructure",
+      "name": "DerivativeStructure",
       "parameterTypes": [ "int", "int", "int", "double" ]
     },
     "identifiers": {
@@ -646,6 +692,225 @@
         "guard": {
           "condition": "n >= 0 && n <= 170",
           "description": "n is between 0 and 170 (inclusive)"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextChiSquare",
+      "parameterTypes": [ "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "df" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Degrees of freedom must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "df > 0 && df <= 20",
+          "description": "df must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextF",
+      "parameterTypes": [ "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "numeratorDf", "denominatorDf" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Degrees of freedom must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "numeratorDf > 0 && numeratorDf <= 20 && denominatorDf > 0 && denominatorDf <= 20",
+          "description": "numeratorDf and denominatorDf must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextBeta",
+      "parameterTypes": [ "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "alpha", "beta" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Shape parameters must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "alpha > 0 && alpha <= 20 && beta > 0 && beta <= 20",
+          "description": "alpha and beta must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextGamma",
+      "parameterTypes": [ "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "shape", "scale" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Shape and scale parameters must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "shape > 0 && shape <= 20 && scale > 0 && scale <= 100",
+          "description": "shape must be between 0 and 20, scale between 0 and 100"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextT",
+      "parameterTypes": [ "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "df" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Degrees of freedom must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "df > 0 && df <= 20",
+          "description": "df must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.special.Beta",
+      "name": "regularizedBeta",
+      "parameterTypes": [ "double", "double", "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "x", "a", "b", "epsilon" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "x must be in valid range for beta function",
+        "guard": {
+          "condition": "x >= 0 && x <= 1",
+          "description": "x must be between 0 and 1"
+        }
+      },
+      {
+        "description": "Shape parameters must be positive and limited",
+        "guard": {
+          "condition": "a > 0 && a <= 20 && b > 0 && b <= 20",
+          "description": "a and b must be between 0 and 20"
+        }
+      },
+      {
+        "description": "Epsilon must be positive to prevent infinite loops",
+        "guard": {
+          "condition": "epsilon > 0 && epsilon <= 0.01",
+          "description": "epsilon must be positive and at most 0.01"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.special.Beta",
+      "name": "regularizedBeta",
+      "parameterTypes": [ "double", "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "x", "a", "b" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "x must be in valid range for beta function",
+        "guard": {
+          "condition": "x >= 0 && x <= 1",
+          "description": "x must be between 0 and 1"
+        }
+      },
+      {
+        "description": "Shape parameters must be positive and limited",
+        "guard": {
+          "condition": "a > 0 && a <= 20 && b > 0 && b <= 20",
+          "description": "a and b must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.special.Beta",
+      "name": "regularizedBeta",
+      "parameterTypes": [ "double", "double", "double", "int" ]
+    },
+    "identifiers": {
+      "parameters": [ "x", "a", "b", "maxIterations" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "x must be in valid range for beta function",
+        "guard": {
+          "condition": "x >= 0 && x <= 1",
+          "description": "x must be between 0 and 1"
+        }
+      },
+      {
+        "description": "Shape parameters must be positive and limited",
+        "guard": {
+          "condition": "a > 0 && a <= 20 && b > 0 && b <= 20",
+          "description": "a and b must be between 0 and 20"
+        }
+      },
+      {
+        "description": "Max iterations must be reasonable",
+        "guard": {
+          "condition": "maxIterations > 0 && maxIterations <= 10000",
+          "description": "maxIterations must be between 0 and 10000"
         }
       }
     ],

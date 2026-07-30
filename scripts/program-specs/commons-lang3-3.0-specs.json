@@ -24,6 +24,13 @@
     },
     "pre": [
       {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      },
+      {
         "description": "If letters is true, start and end range must include letters",
         "guard": {
           "condition": "letters ? (start <= 90 && end >= 65) || (start <= 122 && end >= 97) : true",
@@ -75,6 +82,13 @@
     },
     "pre": [
       {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      },
+      {
         "description": "If letters is true and chars is null, start and end range must include letters",
         "guard": {
           "condition": "letters && chars == null ? (start <= 90 && end >= 65) || (start <= 122 && end >= 97) : true",
@@ -93,6 +107,339 @@
         "guard": {
           "condition": "letters && numbers && chars == null ? (start <= 90 && end >= 65) || (start <= 122 && end >= 97) || (start <= 57 && end >= 48) : true",
           "description": "If both letters and numbers are true and chars is null, start and end range must include letters or numbers"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "[C"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "chars"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "boolean",
+        "boolean"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "letters",
+        "numbers"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "chars"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "randomAlphabetic",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "randomAlphanumeric",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "randomAscii",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "randomNumeric",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 10000",
+          "description": "count must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.text.FormattableUtils",
+      "name": "append",
+      "parameterTypes": [
+        "java.lang.CharSequence",
+        "java.util.Formatter",
+        "int",
+        "int",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "seq",
+        "formatter",
+        "flags",
+        "width",
+        "precision"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Width must be between 0 and 1000 to prevent long strings",
+        "guard": {
+          "condition": "width >= 0 && width <= 1000",
+          "description": "Width must be between 0 and 1000 to prevent long strings"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.text.FormattableUtils",
+      "name": "append",
+      "parameterTypes": [
+        "java.lang.CharSequence",
+        "java.util.Formatter",
+        "int",
+        "int",
+        "int",
+        "char"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "seq",
+        "formatter",
+        "flags",
+        "width",
+        "precision",
+        "padChar"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Width must be between 0 and 1000 to prevent long strings",
+        "guard": {
+          "condition": "width >= 0 && width <= 1000",
+          "description": "Width must be between 0 and 1000 to prevent long strings"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.text.FormattableUtils",
+      "name": "append",
+      "parameterTypes": [
+        "java.lang.CharSequence",
+        "java.util.Formatter",
+        "int",
+        "int",
+        "int",
+        "java.lang.CharSequence"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "seq",
+        "formatter",
+        "flags",
+        "width",
+        "precision",
+        "ellipsis"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Width must be between 0 and 1000 to prevent long strings",
+        "guard": {
+          "condition": "width >= 0 && width <= 1000",
+          "description": "Width must be between 0 and 1000 to prevent long strings"
         }
       }
     ],
@@ -132,6 +479,520 @@
         "guard": {
           "condition": "width >= 0 && width <= 1000",
           "description": "Width must be between 0 and 1000 to prevent long strings"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "leftPad",
+      "parameterTypes": [
+        "java.lang.String",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "leftPad",
+      "parameterTypes": [
+        "java.lang.String",
+        "int",
+        "char"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size",
+        "padChar"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "leftPad",
+      "parameterTypes": [
+        "java.lang.String",
+        "int",
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size",
+        "padStr"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "rightPad",
+      "parameterTypes": [
+        "java.lang.String",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "rightPad",
+      "parameterTypes": [
+        "java.lang.String",
+        "int",
+        "char"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size",
+        "padChar"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "rightPad",
+      "parameterTypes": [
+        "java.lang.String",
+        "int",
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size",
+        "padStr"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "center",
+      "parameterTypes": [
+        "java.lang.String",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "center",
+      "parameterTypes": [
+        "java.lang.String",
+        "int",
+        "char"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size",
+        "padChar"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "center",
+      "parameterTypes": [
+        "java.lang.String",
+        "int",
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "size",
+        "padStr"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Size must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "size >= 0 && size <= 10000",
+          "description": "size must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "repeat",
+      "parameterTypes": [
+        "java.lang.String",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "repeat"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Repeat count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "repeat >= 0 && repeat <= 1000",
+          "description": "repeat must be between 0 and 1000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.StringUtils",
+      "name": "repeat",
+      "parameterTypes": [
+        "java.lang.String",
+        "java.lang.String",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "separator",
+        "repeat"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Repeat count must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "repeat >= 0 && repeat <= 1000",
+          "description": "repeat must be between 0 and 1000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.time.DurationFormatUtils",
+      "name": "formatPeriod",
+      "parameterTypes": [
+        "long",
+        "long",
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "startMillis",
+        "endMillis",
+        "format"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Start time must be less than or equal to end time to prevent infinite loops",
+        "guard": {
+          "condition": "startMillis <= endMillis",
+          "description": "startMillis must be <= endMillis"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.time.DurationFormatUtils",
+      "name": "formatPeriod",
+      "parameterTypes": [
+        "long",
+        "long",
+        "java.lang.String",
+        "boolean",
+        "java.util.TimeZone"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "startMillis",
+        "endMillis",
+        "format",
+        "padWithZeros",
+        "timezone"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Start time must be less than or equal to end time to prevent infinite loops",
+        "guard": {
+          "condition": "startMillis <= endMillis",
+          "description": "startMillis must be <= endMillis"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.text.StrBuilder",
+      "name": "appendPadding",
+      "parameterTypes": ["int", "char"]
+    },
+    "identifiers": {
+      "parameters": ["length", "padChar"],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Length must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "length >= 0 && length <= 100000",
+          "description": "length must be between 0 and 100000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.text.StrBuilder",
+      "name": "appendFixedWidthPadLeft",
+      "parameterTypes": ["int", "int", "char"]
+    },
+    "identifiers": {
+      "parameters": ["value", "width", "padChar"],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Width must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "width >= 0 && width <= 100000",
+          "description": "width must be between 0 and 100000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.text.StrBuilder",
+      "name": "appendFixedWidthPadLeft",
+      "parameterTypes": ["java.lang.Object", "int", "char"]
+    },
+    "identifiers": {
+      "parameters": ["obj", "width", "padChar"],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Width must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "width >= 0 && width <= 100000",
+          "description": "width must be between 0 and 100000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.text.StrBuilder",
+      "name": "appendFixedWidthPadRight",
+      "parameterTypes": ["int", "int", "char"]
+    },
+    "identifiers": {
+      "parameters": ["value", "width", "padChar"],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Width must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "width >= 0 && width <= 100000",
+          "description": "width must be between 0 and 100000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.text.StrBuilder",
+      "name": "appendFixedWidthPadRight",
+      "parameterTypes": ["java.lang.Object", "int", "char"]
+    },
+    "identifiers": {
+      "parameters": ["obj", "width", "padChar"],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Width must be reasonable to prevent excessive memory allocation",
+        "guard": {
+          "condition": "width >= 0 && width <= 100000",
+          "description": "width must be between 0 and 100000"
         }
       }
     ],

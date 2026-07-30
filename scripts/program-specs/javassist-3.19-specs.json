@@ -21,5 +21,51 @@
     ],
     "post": [],
     "throws": []
+  },
+  {
+    "operation": {
+      "classname": "javassist.bytecode.annotation.IntegerMemberValue",
+      "name": "<init>",
+      "parameterTypes": ["int", "javassist.bytecode.ConstPool"]
+    },
+    "identifiers": {
+      "parameters": ["p0", "p1"],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ConstPool must not be null",
+        "guard": {
+          "condition": "p1 != null",
+          "description": "Prevent OutOfMemoryError with null ConstPool"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "javassist.bytecode.annotation.IntegerMemberValue",
+      "name": "<init>",
+      "parameterTypes": ["javassist.bytecode.ConstPool"]
+    },
+    "identifiers": {
+      "parameters": ["p0"],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ConstPool must not be null",
+        "guard": {
+          "condition": "p0 != null",
+          "description": "Prevent OutOfMemoryError with null ConstPool"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
   }
 ]

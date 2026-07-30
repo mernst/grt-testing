@@ -1,0 +1,297 @@
+[
+  {
+    "operation": {
+      "classname": "org.apache.bcel.generic.PUSH",
+      "name": "PUSH",
+      "parameterTypes": [
+        "org.apache.bcel.generic.ConstantPoolGen",
+        "boolean"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "cp",
+        "value"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ConstantPoolGen must not be null",
+        "guard": {
+          "condition": "cp != null",
+          "description": "cp must be non-null"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.generic.PUSH",
+      "name": "PUSH",
+      "parameterTypes": [
+        "org.apache.bcel.generic.ConstantPoolGen",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "cp",
+        "value"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ConstantPoolGen must not be null",
+        "guard": {
+          "condition": "cp != null",
+          "description": "cp must be non-null"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.generic.PUSH",
+      "name": "PUSH",
+      "parameterTypes": [
+        "org.apache.bcel.generic.ConstantPoolGen",
+        "long"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "cp",
+        "value"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ConstantPoolGen must not be null",
+        "guard": {
+          "condition": "cp != null",
+          "description": "cp must be non-null"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.generic.PUSH",
+      "name": "PUSH",
+      "parameterTypes": [
+        "org.apache.bcel.generic.ConstantPoolGen",
+        "float"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "cp",
+        "value"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ConstantPoolGen must not be null",
+        "guard": {
+          "condition": "cp != null",
+          "description": "cp must be non-null"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.generic.PUSH",
+      "name": "PUSH",
+      "parameterTypes": [
+        "org.apache.bcel.generic.ConstantPoolGen",
+        "double"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "cp",
+        "value"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ConstantPoolGen must not be null",
+        "guard": {
+          "condition": "cp != null",
+          "description": "cp must be non-null"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.generic.PUSH",
+      "name": "PUSH",
+      "parameterTypes": [
+        "org.apache.bcel.generic.ConstantPoolGen",
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "cp",
+        "value"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ConstantPoolGen must not be null",
+        "guard": {
+          "condition": "cp != null",
+          "description": "cp must be non-null"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.util.InstructionFinder",
+      "name": "search",
+      "parameterTypes": [
+        "java.lang.String",
+        "org.apache.bcel.util.InstructionFinder$CodeConstraint"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "pattern",
+        "constraint"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Pattern must not be null, empty, or whitespace-only to prevent excessive matching",
+        "guard": {
+          "condition": "pattern != null && pattern.trim().length() > 0",
+          "description": "pattern must be non-null and contain non-whitespace characters"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.util.InstructionFinder",
+      "name": "search",
+      "parameterTypes": [
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "pattern"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Pattern must not be null, empty, or whitespace-only to prevent excessive matching",
+        "guard": {
+          "condition": "pattern != null && pattern.trim().length() > 0",
+          "description": "pattern must be non-null and contain non-whitespace characters"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.verifier.structurals.LocalVariables",
+      "name": "LocalVariables",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "maxLocals"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "maxLocals must be within reasonable bounds to prevent excessive memory allocation",
+        "guard": {
+          "condition": "maxLocals >= 0 && maxLocals <= 10000",
+          "description": "maxLocals must be between 0 and 10000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.bcel.classfile.Utility",
+      "name": "replace",
+      "parameterTypes": [
+        "java.lang.String",
+        "java.lang.String",
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str",
+        "old",
+        "new_str"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Input string must be non-empty to prevent infinite loop",
+        "guard": {
+          "condition": "str != null && str.length() > 0",
+          "description": "str must be non-null and non-empty"
+        }
+      },
+      {
+        "description": "Search pattern must be non-empty to prevent infinite replacement",
+        "guard": {
+          "condition": "old != null && old.length() > 0",
+          "description": "old must be non-null and non-empty"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  }
+]

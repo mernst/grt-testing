@@ -23,12 +23,32 @@
           "condition": "in != null && in.length() > 0",
           "description": "Input string 'in' must be non-empty"
         }
-      },
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "com.jstevh.tools.StringList",
+      "name": "add",
+      "parameterTypes": [
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "str"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
       {
-        "description": "String array 'strings' must not contain any empty strings",
+        "description": "String must be non-null and non-empty to prevent issues with removeStrings",
         "guard": {
-          "condition": "strings != null && !java.util.Arrays.asList(strings).contains(\"\")",
-          "description": "String array 'strings' must not contain any empty strings"
+          "condition": "str != null && str.length() > 0",
+          "description": "str must be non-null and non-empty"
         }
       }
     ],

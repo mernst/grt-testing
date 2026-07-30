@@ -101,4 +101,4 @@ experiment-clean:
 	rm -rf build/lib/*
 
 src:
-	get-all-subject-src.sh
+	./get-all-subject-src.sh

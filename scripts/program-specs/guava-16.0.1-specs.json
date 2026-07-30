@@ -16,10 +16,37 @@
     },
     "pre": [
       {
-        "description": "objCollectionQueue must be non-empty",
+        "description": "objCollectionQueue must be non-null and non-empty",
         "guard": {
-          "condition": "!objCollectionQueue.isEmpty()",
-          "description": "objCollectionQueue must be non-empty"
+          "condition": "objCollectionQueue != null && !objCollectionQueue.isEmpty()",
+          "description": "objCollectionQueue must be non-null and non-empty"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "com.google.common.util.concurrent.Uninterruptibles",
+      "name": "getUninterruptibly",
+      "parameterTypes": [
+        "java.util.concurrent.Future"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "future"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "future must be done and not cancelled to prevent excessive execution time",
+        "guard": {
+          "condition": "future != null && future.isDone() && !future.isCancelled()",
+          "description": "future must be done and not cancelled"
         }
       }
     ],
@@ -70,6 +97,89 @@
         "guard": {
           "condition": "n >= 0 && n <= 170",
           "description": "n is between 0 and 170 (inclusive)"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "com.google.common.util.concurrent.Striped",
+      "name": "readWriteLock",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "stripes"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "stripes must be positive and small enough to prevent excessive execution time",
+        "guard": {
+          "condition": "stripes > 0 && stripes <= 1000",
+          "description": "stripes is between 1 and 1000 (inclusive)"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "com.google.common.util.concurrent.Striped",
+      "name": "lock",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "stripes"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "stripes must be positive and small enough to prevent excessive execution time",
+        "guard": {
+          "condition": "stripes > 0 && stripes <= 1000",
+          "description": "stripes is between 1 and 1000 (inclusive)"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "com.google.common.util.concurrent.Striped",
+      "name": "semaphore",
+      "parameterTypes": [
+        "int",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "stripes",
+        "permits"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "stripes and permits must be positive and small enough to prevent excessive execution time",
+        "guard": {
+          "condition": "stripes > 0 && stripes <= 1000 && permits >= 0 && permits <= 1000",
+          "description": "stripes and permits are in reasonable ranges"
         }
       }
     ],

@@ -170,7 +170,7 @@ FEATURE_FLAGS=(
   ["DETECTIVE"]="--call-non-sut-methods=true"
   ["GRT_FUZZING"]="--grt-fuzzing=true"
   ["ELEPHANT_BRAIN"]="--cast-to-run-time-type=true"
-  ["CONSTANT_MINING"]="--literal-tfidf=true --literal-tfidf-probability=1.0 --include-superclass-literals=true"
+  ["CONSTANT_MINING"]="--literal-tfidf=true --literal-tfidf-probability=0.3 --include-superclass-literals=true"
   ["BASELINE"]=""
 )
 
@@ -491,14 +491,14 @@ RANDOOP_BASE_COMMAND=(
 # Add special command suffixes for specific subject programs
 declare -A command_suffix=(
   # Specify valid inputs to prevent infinite loops during test generation/execution
-  ["ClassViewer-5.0.5b"]="--specifications=$SCRIPT_DIR/program-specs/ClassViewer-5.0.5b-specs.json --omit-methods=^com\.jstevh\.viewer\.ClassViewer\.callBrowser\(java\.lang\.String\)$"
-  ["commons-cli-1.2"]="--specifications=$SCRIPT_DIR/program-specs/commons-cli-1.2-specs.json"
-  ["commons-lang3-3.0"]="--specifications=$SCRIPT_DIR/program-specs/commons-lang3-3.0-specs.json"
+  ["ClassViewer-5.0.5b"]="--specifications=$SCRIPT_DIR/program-specs/ClassViewer-5.0.5b-specs.json --omit-methods=^(com\.jstevh\.viewer\.ClassViewer\.callBrowser\(java\.lang\.String\)|com\.jstevh\.tools\.StringTools\.removeStrings\(java\.lang\.String,java\.lang\.String\[\]\))$"
+  ["commons-cli-1.2"]="--specifications=$SCRIPT_DIR/program-specs/commons-cli-1.2-specs.json --usethreads=true"
+  ["commons-lang3-3.0"]="--specifications=$SCRIPT_DIR/program-specs/commons-lang3-3.0-specs.json --omit-methods=^org\.apache\.commons\.lang3\.exception\.ContextedRuntimeException\.(setContextValue|addContextValue)\(.*\)$|^org\.apache\.commons\.lang3\.exception\.ContextedException\.(setContextValue|addContextValue)\(.*\)$"
   ["guava-16.0.1"]="--specifications=$SCRIPT_DIR/program-specs/guava-16.0.1-specs.json --usethreads=true"
   ["jaxen-1.1.6"]="--specifications=$SCRIPT_DIR/program-specs/jaxen-1.1.6-specs.json"
 
   # Randoop generates bad sequences for handling webserver lifecycle, don't test them
-  ["javassist-3.19"]="--omit-methods=^javassist\.tools\.web\.Webserver\.run\(\)$ --omit-methods=^javassist\.tools\.rmi\.AppletServer\.run\(\)$"
+  ["javassist-3.19"]="--specifications=$SCRIPT_DIR/program-specs/javassist-3.19-specs.json --omit-methods=^javassist\.tools\.web\.Webserver\.run\(\)$|^javassist\.tools\.rmi\.AppletServer\.run\(\)$|^javassist\.tools\.rmi\.ObjectImporter\.(call|setHttpProxy|lookupObject|getObject)\(.*\)$|^javassist\.tools\.reflect\.Reflection\.(rebuildClassFile|start|makeReflective)\(.*\)$|^javassist\.URLClassPath\.fetchClass\(.*\)$|^javassist\.CtClassType\.getFields\(\)$|^javassist\.CtClass\.(addConstructor|addField|addMethod|addInterface|setAttribute|setModifiers|setSuperclass|defrost|freeze|prune|toBytecode|writeFile|toClass|subclassOf)\(.*\)$|^javassist\.CtBehavior\.(addParameter|addLocalVariable|setBody|insertBefore|insertAfter|setModifiers|setAttribute)\(.*\)$|^javassist\.ClassPool\.(makeClass|makeInterface)\(.*\)$ --omit-field=javassist.CtClass.byteType --omit-field=javassist.CtClass.shortType --omit-field=javassist.CtClass.charType --omit-field=javassist.CtClass.intType --omit-field=javassist.CtClass.longType --omit-field=javassist.CtClass.floatType --omit-field=javassist.CtClass.doubleType --omit-field=javassist.CtClass.booleanType --omit-field=javassist.CtClass.voidType --omit-field=javassist.ClassPool.childFirstLookup"
   # PrintStream.close() is called to close System.out during Randoop test generation.
   # This will interrupt the test generation process. Omit the close() method.
   ["javax.mail-1.5.1"]="--omit-methods=^java\.io\.PrintStream\.close\(\)$|^java\.io\.FilterOutputStream\.close\(\)$|^java\.io\.OutputStream\.close\(\)$|^com\.sun\.mail\.util\.BASE64EncoderStream\.close\(\)$|^com\.sun\.mail\.util\.QEncoderStream\.close\(\)$|^com\.sun\.mail\.util\.QPEncoderStream\.close\(\)$|^com\.sun\.mail\.util\.UUEncoderStream\.close\(\)$ --usethreads=true"
@@ -507,11 +507,14 @@ declare -A command_suffix=(
 
   # Long execution time due to excessive computation for some inputs.
   # Specify input range to reduce computation and test execution time.
-  ["commons-collections4-4.0"]="--specifications=$SCRIPT_DIR/program-specs/commons-collections4-4.0-specs.json"
+  ["bcel-5.2"]="--specifications=$SCRIPT_DIR/program-specs/bcel-5.2-specs.json"
+  ["commons-collections4-4.0"]="--specifications=$SCRIPT_DIR/program-specs/commons-collections4-4.0-specs.json --omit-methods=^org\.apache\.commons\.collections4\.IteratorUtils\.getIterator\(java\.lang\.Object\)$|^org\.apache\.commons\.collections4\.MapUtils\.getMap\(java\.util\.Map,java\.lang\.Object\)$|^org\.apache\.commons\.collections4\.MapUtils\.getMap\(java\.util\.Map,java\.lang\.Object,java\.util\.Map\)$"
   # Force termination if a test case takes too long to execute
-  ["commons-math3-3.2"]="--usethreads=true"
+  ["commons-math3-3.2"]="--specifications=$SCRIPT_DIR/program-specs/commons-math3-3.2-specs.json --usethreads=true"
   ["nekomud-r16"]="--omit-methods=^net\.sourceforge\.nekomud\.service\.NetworkService\.stop\(\)$"
-  ["sat4j-core-2.3.5"]="--specifications=$SCRIPT_DIR/program-specs/sat4j-core-2.3.5-specs.json --omit-methods=^org\.sat4j\.minisat\.constraints\.cnf\.OriginalBinaryClause\.toConstraint\(\)$|^org\.sat4j\.minisat\.constraints\.card\.AtLeast\.learnt\(\)$ --usethreads=true"
+  ["sat4j-core-2.3.5"]="--specifications=$SCRIPT_DIR/program-specs/sat4j-core-2.3.5-specs.json --omit-methods=^org\.sat4j\.minisat\.constraints\.cnf\.OriginalBinaryClause\.toConstraint\(\)$|^org\.sat4j\.minisat\.constraints\.card\.AtLeast\.learnt\(\)$|^org\.sat4j\.minisat\.core\..*\.setRestartStrategy\(.*\)$|^org\.sat4j\.minisat\.restarts\..*\.(onBackjumpToRootLevel|onRestart|newConflict)\(\)$ --usethreads=true"
+  ["shiro-core-1.2.3"]="--omit-classes=^org\.apache\.shiro\.mgt\.DefaultSecurityManager$|^org\.apache\.shiro\.session\.mgt\.DefaultSessionManager$"
+  ["slf4j-api-1.7.12"]="--omit-methods=^org1\.slf4j\.LoggerFactory\.(getLogger|getILoggerFactory)\(.*\)$"
   ["tiny-sql-2.26"]="--specifications=$SCRIPT_DIR/program-specs/tiny-sql-2.26-specs.json"
 )
 

@@ -159,8 +159,35 @@
       {
         "description": "The node set of context must have size greater than 0",
         "guard": {
-          "condition": "context.getNodeSet().size() > 0",
+          "condition": "context != null && context.getNodeSet() != null && context.getNodeSet().size() > 0",
           "description": "The node set of context must have size greater than 0"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.jaxen.Context",
+      "name": "Context",
+      "parameterTypes": [
+        "org.jaxen.ContextSupport"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "contextSupport"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "ContextSupport must not be null to prevent evaluation failures",
+        "guard": {
+          "condition": "contextSupport != null",
+          "description": "contextSupport must be non-null"
         }
       }
     ],
