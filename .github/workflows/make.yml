@@ -10,6 +10,7 @@ jobs:
         with:
           fetch-depth: 1
           show-progress: false
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v7
