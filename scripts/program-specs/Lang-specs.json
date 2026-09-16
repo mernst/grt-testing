@@ -1,0 +1,285 @@
+[
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be small to prevent excessive allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 1000",
+          "description": "Prevents excessive memory allocation"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "boolean",
+        "boolean"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "letters",
+        "numbers"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be small to prevent excessive allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 1000",
+          "description": "Prevents excessive memory allocation"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "java.lang.String"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "chars"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be small to prevent excessive allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 1000",
+          "description": "Prevents excessive memory allocation"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "[C"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "chars"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be small to prevent excessive allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 1000",
+          "description": "Prevents excessive memory allocation"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "int",
+        "int",
+        "boolean",
+        "boolean"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "start",
+        "end",
+        "letters",
+        "numbers"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be small to prevent excessive allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 1000",
+          "description": "Prevents excessive memory allocation"
+        }
+      },
+      {
+        "description": "If numbers is true, range must include digits (48-57)",
+        "guard": {
+          "condition": "!numbers || (start <= 57 && end > 48)",
+          "description": "Prevents infinite loop when numbers=true but range contains no digits"
+        }
+      },
+      {
+        "description": "If letters is true, range must include letters",
+        "guard": {
+          "condition": "!letters || (start <= 90 && end > 65) || (start <= 122 && end > 97)",
+          "description": "Prevents infinite loop when letters=true but range contains no letters"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "int",
+        "int",
+        "boolean",
+        "boolean",
+        "[C"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "start",
+        "end",
+        "letters",
+        "numbers",
+        "chars"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be small to prevent excessive allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 1000",
+          "description": "Prevents excessive memory allocation"
+        }
+      },
+      {
+        "description": "Cannot use letter/number filtering with char array",
+        "guard": {
+          "condition": "chars == null || (!letters && !numbers)",
+          "description": "Prevents infinite loop when chars array slice contains no valid letters/digits"
+        }
+      },
+      {
+        "description": "If numbers is true and no char array, range must include digits",
+        "guard": {
+          "condition": "!numbers || chars != null || (start <= 57 && end > 48)",
+          "description": "Prevents infinite loop when numbers=true but range contains no digits"
+        }
+      },
+      {
+        "description": "If letters is true and no char array, range must include letters",
+        "guard": {
+          "condition": "!letters || chars != null || (start <= 90 && end > 65) || (start <= 122 && end > 97)",
+          "description": "Prevents infinite loop when letters=true but range contains no letters"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.lang3.RandomStringUtils",
+      "name": "random",
+      "parameterTypes": [
+        "int",
+        "int",
+        "int",
+        "boolean",
+        "boolean",
+        "[C",
+        "java.util.Random"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "count",
+        "start",
+        "end",
+        "letters",
+        "numbers",
+        "chars",
+        "random"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Count must be small to prevent excessive allocation",
+        "guard": {
+          "condition": "count >= 0 && count <= 1000",
+          "description": "Prevents excessive memory allocation"
+        }
+      },
+      {
+        "description": "Cannot use letter/number filtering with char array",
+        "guard": {
+          "condition": "chars == null || (!letters && !numbers)",
+          "description": "Prevents infinite loop when chars array slice contains no valid letters/digits"
+        }
+      },
+      {
+        "description": "If numbers is true and no char array, range must include digits",
+        "guard": {
+          "condition": "!numbers || chars != null || (start <= 57 && end > 48)",
+          "description": "Prevents infinite loop when numbers=true but range contains no digits"
+        }
+      },
+      {
+        "description": "If letters is true and no char array, range must include letters",
+        "guard": {
+          "condition": "!letters || chars != null || (start <= 90 && end > 65) || (start <= 122 && end > 97)",
+          "description": "Prevents infinite loop when letters=true but range contains no letters"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  }
+]

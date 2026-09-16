@@ -1,0 +1,47 @@
+[
+  {
+    "operation": {
+      "classname": "org.jfree.chart.axis.SegmentedTimeline",
+      "name": "SegmentedTimeline",
+      "parameterTypes": [
+        "long",
+        "int",
+        "int"
+      ]
+    },
+    "identifiers": {
+      "parameters": [
+        "segmentSize",
+        "segmentsIncluded",
+        "segmentsExcluded"
+      ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "segmentSize must be positive",
+        "guard": {
+          "condition": "segmentSize > 0",
+          "description": "segmentSize must be positive"
+        }
+      },
+      {
+        "description": "segmentsIncluded must be positive",
+        "guard": {
+          "condition": "segmentsIncluded > 0",
+          "description": "segmentsIncluded must be positive"
+        }
+      },
+      {
+        "description": "segmentsExcluded must be non-negative",
+        "guard": {
+          "condition": "segmentsExcluded >= 0",
+          "description": "segmentsExcluded must be non-negative"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  }
+]

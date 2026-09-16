@@ -182,19 +182,23 @@ FEATURE_FLAGS=(
   ["BLOODHOUND"]="--method-selection=BLOODHOUND"
   ["ORIENTEERING"]="--input-selection=ORIENTEERING"
   ["DETECTIVE"]="--call-non-sut-methods=true"
+  ["GRT_FUZZING"]="--grt-fuzzing=true"
   ["ELEPHANT_BRAIN"]="--cast-to-run-time-type=true"
-  ["CONSTANT_MINING"]="--constant-mining=true"
-  ["IMPURITY"]="--grt-fuzzing=true"
+  ["CONSTANT_MINING"]="--literal-tfidf=true --literal-tfidf-probability=0.3 --include-superclass-literals=true"
   ["BASELINE"]=""
 )
 
+# Convert feature names to Randoop command-line options.
 # Convert feature names to Randoop command-line options.
 EXPANDED_FEATURE_FLAGS=()
 for feat in "${RANDOOP_FEATURES[@]}"; do
   if [[ "${FEATURE_FLAGS[$feat]+exists}" ]]; then
     flag="${FEATURE_FLAGS[$feat]}"
     if [[ -n "$flag" ]]; then
-      EXPANDED_FEATURE_FLAGS+=("$flag")
+      # Split multi-argument feature strings into separate array entries
+      # shellcheck disable=SC2206
+      split_flags=($flag)
+      EXPANDED_FEATURE_FLAGS+=("${split_flags[@]}")
     fi
   else
     echo "${SCRIPT_NAME}: error: unknown feature '$feat'"
@@ -263,7 +267,7 @@ for i in $(seq 1 "$NUM_LOOP"); do
   PROJECT_CP=$(defects4j export -p cp.compile -w "$FIXED_WORK_DIR")
 
   # Build effective classpath for IMPURITY
-  if [[ " ${RANDOOP_FEATURES[*]} " =~ " IMPURITY " ]]; then
+  if [[ " ${RANDOOP_FEATURES[*]} " =~ " GRT_FUZZING " ]]; then
     echo "Configuring classpath for IMPURITY feature..."
     ANNOTATED_JAR=$(realpath "$SCRIPT_DIR/../defects4j-jars/$PROJECT_ID/$PROJECT_ID-b${BUG_ID}.jar")
     require_file "$ANNOTATED_JAR"
@@ -286,7 +290,7 @@ for i in $(seq 1 "$NUM_LOOP"); do
   # Count the number of relevant classes
   NUM_CLASSES=$(wc -l < "$RELEVANT_CLASSES_FILE")
 
-  if [ "$NUM_CLASSES" -le 0 ]; then
+  if [ "$NUM_CLASSES" -lt 0 ]; then
     echo "No relevant classes found."
     exit 1
   fi
@@ -298,26 +302,50 @@ for i in $(seq 1 "$NUM_LOOP"); do
   fi
 
   #===============================================================================
+  # Project-Specific Configurations
+  #===============================================================================
+
+  # Add special command suffixes for specific Defects4J projects
+  declare -A command_suffix=(
+    # Chart: Use specifications to prevent invalid SegmentedTimeline parameters
+    ["Chart"]="--specifications=$SCRIPT_DIR/program-specs/Chart-specs.json"
+    # Math: Use specifications to prevent hangs in localization code
+    ["Math"]="--specifications=$SCRIPT_DIR/program-specs/Math-specs.json"
+  )
+
+  # Get project-specific flags if they exist
+  PROJECT_SPECIFIC_FLAGS=()
+  if [[ -n "${command_suffix[$PROJECT_ID]}" ]]; then
+    IFS=' ' read -r -a PROJECT_SPECIFIC_FLAGS <<< "${command_suffix[$PROJECT_ID]}"
+  fi
+  
+  # Lang: Use specifications to prevent infinite loops in RandomStringUtils (bugs 11, 12 only)
+  if [[ "$PROJECT_ID" == "Lang" && ("$BUG_ID" == "11" || "$BUG_ID" == "12") ]]; then
+    PROJECT_SPECIFIC_FLAGS+=("--specifications=$SCRIPT_DIR/program-specs/Lang-specs.json")
+  fi
+
+  #===============================================================================
   # Test Generation
   #===============================================================================
 
   echo "Generating tests with ${Generator}..."
   RANDOOP_COMMAND=(
     java
-    -Xbootclasspath/a:"$JACOCO_AGENT_JAR:$REPLACECALL_JAR"
+    -Xbootclasspath/a:"$JACOCO_AGENT_JAR"
     -javaagent:"$JACOCO_AGENT_JAR"
-    -javaagent:"$REPLACECALL_JAR"
     -classpath "$EFFECTIVE_CP"
     randoop.main.Main
     gentests
     --classlist="$RELEVANT_CLASSES_FILE"
     --time-limit="$TIME_LIMIT"
     --deterministic=false
+    --usethreads=true
+    --no-error-revealing-tests=true
     --randomseed=0
     --regression-test-basename=RegressionTest
-    --error-test-basename=ErrorTest
     --junit-output-dir="$TEST_DIR"
     "${EXPANDED_FEATURE_FLAGS[@]}"
+    "${PROJECT_SPECIFIC_FLAGS[@]}"
   )
 
   if [ "$VERBOSE" -eq 1 ]; then

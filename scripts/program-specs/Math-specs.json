@@ -1,0 +1,255 @@
+[
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextChiSquare",
+      "parameterTypes": [ "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "df" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Degrees of freedom must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "df > 0 && df <= 20",
+          "description": "df must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextF",
+      "parameterTypes": [ "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "numeratorDf", "denominatorDf" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Degrees of freedom must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "numeratorDf > 0 && numeratorDf <= 20 && denominatorDf > 0 && denominatorDf <= 20",
+          "description": "numeratorDf and denominatorDf must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextBeta",
+      "parameterTypes": [ "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "alpha", "beta" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Shape parameters must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "alpha > 0 && alpha <= 20 && beta > 0 && beta <= 20",
+          "description": "alpha and beta must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextGamma",
+      "parameterTypes": [ "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "shape", "scale" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Shape and scale parameters must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "shape > 0 && shape <= 20 && scale > 0 && scale <= 100",
+          "description": "shape must be between 0 and 20, scale between 0 and 100"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextT",
+      "parameterTypes": [ "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "df" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Degrees of freedom must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "df > 0 && df <= 20",
+          "description": "df must be between 0 and 20"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextHexString",
+      "parameterTypes": [ "int" ]
+    },
+    "identifiers": {
+      "parameters": [ "len" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "String length must be positive and limited to prevent excessive memory usage and timeouts",
+        "guard": {
+          "condition": "len > 0 && len <= 1000",
+          "description": "len must be between 1 and 1000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextSecureHexString",
+      "parameterTypes": [ "int" ]
+    },
+    "identifiers": {
+      "parameters": [ "len" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "String length must be positive and limited to prevent excessive memory usage and timeouts",
+        "guard": {
+          "condition": "len > 0 && len <= 1000",
+          "description": "len must be between 1 and 1000"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextWeibull",
+      "parameterTypes": [ "double", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "shape", "scale" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Shape and scale parameters must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "shape > 0 && shape <= 100 && scale > 0 && scale <= 100",
+          "description": "shape and scale must be between 0 and 100"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextHypergeometric",
+      "parameterTypes": [ "int", "int", "int" ]
+    },
+    "identifiers": {
+      "parameters": [ "populationSize", "numberOfSuccesses", "sampleSize" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Population and sample sizes must be limited to prevent excessive computation",
+        "guard": {
+          "condition": "populationSize > 0 && populationSize <= 1000 && numberOfSuccesses >= 0 && numberOfSuccesses <= populationSize && sampleSize > 0 && sampleSize <= populationSize",
+          "description": "populationSize must be between 1 and 1000, numberOfSuccesses between 0 and populationSize, sampleSize between 1 and populationSize"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextPoisson",
+      "parameterTypes": [ "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "mean" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Mean must be positive and limited to prevent excessive computation",
+        "guard": {
+          "condition": "mean > 0 && mean <= 100",
+          "description": "mean must be between 0 and 100"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  },
+  {
+    "operation": {
+      "classname": "org.apache.commons.math3.random.RandomDataGenerator",
+      "name": "nextBinomial",
+      "parameterTypes": [ "int", "double" ]
+    },
+    "identifiers": {
+      "parameters": [ "numberOfTrials", "probabilityOfSuccess" ],
+      "receiverName": "receiver",
+      "returnName": "result"
+    },
+    "pre": [
+      {
+        "description": "Number of trials must be limited to prevent excessive computation, probability must be valid",
+        "guard": {
+          "condition": "numberOfTrials > 0 && numberOfTrials <= 1000 && probabilityOfSuccess >= 0.0 && probabilityOfSuccess <= 1.0",
+          "description": "numberOfTrials must be between 1 and 1000, probabilityOfSuccess between 0 and 1"
+        }
+      }
+    ],
+    "post": [],
+    "throws": []
+  }
+]

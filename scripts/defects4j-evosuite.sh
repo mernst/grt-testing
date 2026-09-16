@@ -226,7 +226,7 @@ for i in $(seq 1 "$NUM_LOOP"); do
   #===============================================================================
 
   # Count the number of relevant classes
-  NUM_CLASSES=$(wc -l < "$RELEVANT_CLASSES_FILE")
+  NUM_CLASSES=$(awk 'END { print NR }' "$RELEVANT_CLASSES_FILE")
 
   if [ "$NUM_CLASSES" -le 0 ]; then
     echo "No relevant classes found."
@@ -255,7 +255,6 @@ for i in $(seq 1 "$NUM_LOOP"); do
       -projectCP "$PROJECT_CP"
       -seed 0
       -Dsearch_budget="$TIME_LIMIT"
-      -Dassertion_timeout="$TIME_LIMIT"
       -Dtest_dir="$TEST_DIR"
       -Dreport_dir="$REPORT_DIR"
     )
