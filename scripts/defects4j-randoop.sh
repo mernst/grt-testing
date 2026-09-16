@@ -318,7 +318,7 @@ for i in $(seq 1 "$NUM_LOOP"); do
   if [[ -n "${command_suffix[$PROJECT_ID]}" ]]; then
     IFS=' ' read -r -a PROJECT_SPECIFIC_FLAGS <<< "${command_suffix[$PROJECT_ID]}"
   fi
-  
+
   # Lang: Use specifications to prevent infinite loops in RandomStringUtils (bugs 11, 12 only)
   if [[ "$PROJECT_ID" == "Lang" && ("$BUG_ID" == "11" || "$BUG_ID" == "12") ]]; then
     PROJECT_SPECIFIC_FLAGS+=("--specifications=$SCRIPT_DIR/program-specs/Lang-specs.json")
