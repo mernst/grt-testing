@@ -42,7 +42,8 @@ build/randoop:
 	mkdir -p build
 	cd build && git clone git@github.com:randoop/randoop.git
 
-randoop-from-source:
+# The prerequisite prevents `make -j` from running two recipes in build/randoop at once.
+randoop-from-source: build/replacecall-4.3.4.jar
 	cd build/randoop && \
 	git pull && \
 	./gradlew shadowJar && \
